@@ -1,4 +1,8 @@
 import Form from './form/Form'
+import ReactModal from 'react-modal'
+
+ReactModal.setAppElement('#root')
+
 export default function App({ home }) {
   console.log('Home', home)
 

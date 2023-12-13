@@ -66,3 +66,25 @@ export const defaultValues = {
       website:''
 }
 
+export const uploadImage = async (image) => {
+    const CLOUDINARY_UPLOAD_PRESET = 'business-logo'
+    const CLOUDINARY_CLOUD_NAME = 'dkxssdk96'
+    const data = new FormData()
+     data.append('file', image)
+     data.append('upload_preset', CLOUDINARY_UPLOAD_PRESET)
+     data.append('cloud_name', CLOUDINARY_CLOUD_NAME)
+     data.append('folder', 'Cloudinary-React')
+    try {
+      const response = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/upload`, {
+        method: 'POST',
+        body: data,
+      })
+      const res = await response.json()
+      if(res.error) throw new Error(res.error.message)
+      return res.url
+    } catch (error) {
+      // console.log(error)
+      return { error: error }   
+    }
+
+  }

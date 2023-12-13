@@ -1,15 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { ErrorMessage } from '@hookform/error-message'
 import { DevTool } from '@hookform/devtools'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { cn, defaultValues, checkABCErrors } from '../utils'
+import { cn, defaultValues, checkABCErrors, uploadImage } from '../utils'
 import { saveWindow } from '../services'
 import { yupSchema } from '../yupSchema'
 import Vehicle from './Vehicle'
 import Customize from './Customize'
 
 export default function Form() {
+  const [imageFile, setImageFile] = useState(null)
+
   const {
     control,
     register,
@@ -22,6 +24,14 @@ export default function Form() {
     defaultValues: defaultValues,
   })
   const onSubmit = async (data) => {
+    if (imageFile) {
+      const response = await uploadImage(imageFile)
+      console.log(response)
+    }
+    if (data.standard) {
+      console.log('User chose standard size')
+      return
+    }
     const response = await saveWindow(data)
     console.log(response)
   }
@@ -65,10 +75,10 @@ export default function Form() {
             {!isStandard && checkABCErrors(errors) && <p className='text-accent'> Please enter values for A B and C. </p>}
           </div>
         </div>
-        <Customize register={register} watch={watch} setValue={setValue} errors={errors} />
+        <Customize setImageFile={setImageFile} register={register} watch={watch} setValue={setValue} errors={errors} />
         <div
           onClick={handleSubmit(onSubmit)}
-          className='text-center cursor-pointer py-2 px-4 w-full border-2 border-border text-txt-primary hover:border-accent hover:text-accent transition-all ease-in-out duration-400'
+          className='ml-auto text-center cursor-pointer py-2 px-4 w-1/2 hover:w-full border-2 border-border hover:text-txt-primary hover:border-accent text-accent transition-all ease-in-out duration-400'
           type='submit'>
           Submit
         </div>
