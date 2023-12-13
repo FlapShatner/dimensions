@@ -23,11 +23,11 @@ export default function Vehicle({ isStandard, register, watch, setValue, errors 
           </div>
           <div className='flex flex-col flex-1 w-12'>
             <label htmlFor='make'>Make:</label>
-            <input {...register('make')} disabled={isStandard} type='text' name='make' id='make' />
+            <input style={{ minHeight: '0' }} {...register('make')} disabled={isStandard} type='text' name='make' id='make' />
           </div>
           <div className='flex flex-col flex-1 w-12'>
             <label htmlFor='model'>Model:</label>
-            <input {...register('model')} disabled={isStandard} className='flex flex-shrink' type='text' name='model' id='model' />
+            <input style={{ minHeight: '0' }} {...register('model')} disabled={isStandard} className='flex flex-shrink' type='text' name='model' id='model' />
           </div>
         </div>
         {!isStandard && (
@@ -45,7 +45,7 @@ export default function Vehicle({ isStandard, register, watch, setValue, errors 
           </Radio>
           <div className='flex gap-2'>
             <label htmlFor='class'>Truck Class:</label>
-            <select {...register('class')} disabled={isStandard} className='bg-bg-secondary border border-border' name='class' id='class'>
+            <select {...register('class')} disabled={isStandard} className='bg-bg-secondary border border-border pl-1' name='class' id='class'>
               <option value='MIDSIZE'>Mid Size</option>
               <option value='HALF'>1/2 Ton</option>
               <option value='THREEQUARTER'>3/4 Ton</option>

@@ -4,6 +4,7 @@ import Logo from './Logo'
 import { ErrorMessage } from '@hookform/error-message'
 import { cn, formatPhoneNumber } from '../utils'
 import { states } from '../states'
+import { minHeight } from '../App'
 
 export default function Customize({ register, watch, setValue, errors, setImageFile }) {
   const isCustomText = watch('customText')
@@ -17,28 +18,30 @@ export default function Customize({ register, watch, setValue, errors, setImageF
 
   return (
     <div className={cn('mt-4 w-[423px]')}>
-      <span className='text-3xl text-txt-primary'>Customize My Back Window Graphics:</span>
+      <h2 className='text-3xl text-txt-primary'>Customize My Back Window Graphics:</h2>
       <div className='flex flex-col'>
-        <div className='flex flex-col border-b p-4 border border-border my-2'>
-          <div className='flex'>
-            <input className='accent-accent' {...register('customText')} type='checkbox' name='customText' id='customText' />
+        <div className='flex flex-col border-b px-4 border border-border my-2'>
+          <div className='flex gap-2 items-center py-2'>
+            <input style={minHeight} className='accent-accent w-4' {...register('customText')} type='checkbox' name='customText' id='customText' />
             <label htmlFor='customText'>Personalize with Text</label>
           </div>
-          <div className={cn('flex flex-col', !isCustomText && 'hidden')}>
+          <div className={cn('flex flex-col pb-4', !isCustomText && 'hidden')}>
             <label htmlFor='customTextField'>Your custom text:</label>
-            <input {...register('customTextField')} type='text' name='customTextField' id='customTextField' disabled={!isCustomText} />
+            <input style={minHeight} {...register('customTextField')} type='text' name='customTextField' id='customTextField' disabled={!isCustomText} />
             {isCustomText && <ErrorMessage errors={errors} name='customTextField' render={({ message }) => <p className='text-accent'>{message}</p>} />}
           </div>
         </div>
         <div className=' border border-border mt-2'>
-          <div className='flex p-4 '>
-            <input className='accent-accent' {...register('business')} type='checkbox' name='business' id='business' />
+          <div className='flex items-center py-2 px-4 gap-2'>
+            <input style={minHeight} className='accent-accent w-4' {...register('business')} type='checkbox' name='business' id='business' />
             <label htmlFor='business'>Personalize with Business Info</label>
           </div>
           <div className={cn('flex flex-col p-4', !isBusiness && 'hidden')}>
-            <div className={cn('flex')}>
-              <input className='accent-accent' {...register('logo')} type='checkbox' name='logo' id='logo' disabled={!isBusiness} />
-              <label htmlFor='logo'>Use your logo*</label>
+            <div className={cn('flex gap-2 items-center mb-2')}>
+              <input style={minHeight} className='accent-accent w-4' {...register('logo')} type='checkbox' name='logo' id='logo' disabled={!isBusiness} />
+              <label className='mt-0' htmlFor='logo'>
+                Use your logo*
+              </label>
             </div>
             <Logo setImageFile={setImageFile} isLogo={isLogo} isBusiness={isBusiness} register={register} errors={errors} />
           </div>
@@ -46,7 +49,7 @@ export default function Customize({ register, watch, setValue, errors, setImageF
             <div className='flex flex-col gap-4'>
               <div className='flex flex-col '>
                 <label htmlFor='businessName'>Business Name</label>
-                <input {...register('businessName')} type='text' name='businessName' id='businessName' disabled={!isBusiness} />
+                <input style={minHeight} {...register('businessName')} type='text' name='businessName' id='businessName' disabled={!isBusiness} />
                 {isBusiness && <ErrorMessage errors={errors} name='businessName' render={({ message }) => <p className='text-accent'>{message}</p>} />}
               </div>
               <div className='flex flex-col '>
@@ -54,13 +57,13 @@ export default function Customize({ register, watch, setValue, errors, setImageF
                   Slogan
                   <span className='text-xs ml-3'>Example: "Your 1 stop shop for custom graphics"</span>
                 </label>
-                <input disabled={!isBusiness} {...register('slogan')} type='text' name='slogan' id='slogan' />
+                <input style={minHeight} disabled={!isBusiness} {...register('slogan')} type='text' name='slogan' id='slogan' />
               </div>
             </div>
             <div className='flex gap-4'>
               <div className='flex flex-col w-full'>
                 <label htmlFor='city'>City</label>
-                <input disabled={!isBusiness} {...register('city')} type='text' name='city' id='city' />
+                <input style={minHeight} disabled={!isBusiness} {...register('city')} type='text' name='city' id='city' />
               </div>
               <div className='flex flex-col w-full'>
                 <label htmlFor='state'>State</label>
@@ -78,6 +81,7 @@ export default function Customize({ register, watch, setValue, errors, setImageF
               <div className='flex flex-col w-full'>
                 <label htmlFor='phone'>Phone</label>
                 <input
+                  style={minHeight}
                   {...register('phone', {
                     onChange: (e) => handlePhoneChange(e),
                   })}
@@ -89,7 +93,7 @@ export default function Customize({ register, watch, setValue, errors, setImageF
               </div>
               <div className='flex flex-col w-full'>
                 <label htmlFor='website'>Website</label>
-                <input {...register('website')} type='url' name='website' id='website' />
+                <input style={minHeight} {...register('website')} type='url' name='website' id='website' />
               </div>
             </div>
           </div>

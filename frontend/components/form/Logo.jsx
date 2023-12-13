@@ -32,14 +32,14 @@ export default function Logo({ isLogo, isBusiness, setImageFile }) {
     <div>
       <div {...getRootProps()} className={cn('flex flex-col', !isLogo && 'opacity-30', !isBusiness && 'hidden')}>
         <label htmlFor='logoFile'>Upload Image</label>
-        <div className='mt-2 border-2 w-52 border-border hover:border-accent cursor-pointer'>
+        <div className='mt-2 border-2 w-36 border-border hover:border-accent cursor-pointer'>
           <span className={cn('flex gap-2 items-center justify-center text-accent', !isLogo && 'text-txt-primary')}>
             <Icons name='upload' size='12' color={!isLogo ? '#ffffff' : '#13FC00'} />
             Choose file
           </span>
           <input {...getInputProps()} disabled={!isLogo || isOpen} name='logoFile' />
         </div>
-        <span className='text-sm mt-2'>
+        <span className='text-xs mt-2 mb-4'>
           *Logo should be vector art or high resolution .PNG file with no background. Otherwise the logo will be recreated in a printable format and you will be
           charged an extra $85, and you will receive your design either vectorized, or as a high resolution .PNG file with no background.
         </span>
