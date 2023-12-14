@@ -2,10 +2,10 @@ import React, { useState } from 'react'
 import ReactModal from 'react-modal'
 import Icons from './Icons'
 
-export default function Modal({ children, preview, isOpen, setIsOpen }) {
+export default function Modal({ isOpen, setIsOpen, closeStyle, children, contents, maxWidth }) {
   const customStyles = {
     overlay: {
-      backgroundColor: 'rgba(0,0,0,0.5)',
+      backgroundColor: 'hsla(0, 0%, 0%, 0.5)',
       zIndex: '1000',
     },
     content: {
@@ -19,11 +19,11 @@ export default function Modal({ children, preview, isOpen, setIsOpen }) {
       border: 'none',
       borderRadius: '10px',
       padding: '20px',
-      maxWidth: '90%',
-      height: '90%',
+      maxWidth: maxWidth,
+      maxHeight: '90%',
       display: 'flex',
       flexDirection: 'column',
-      justifyContent: 'center',
+      justifyContent: 'start',
       alignItems: 'center',
     },
   }
@@ -40,13 +40,13 @@ export default function Modal({ children, preview, isOpen, setIsOpen }) {
     console.log('Modal is open')
   }
   return (
-    <div>
+    <div className='max-w-lg'>
       <div onClick={openModal}>{children}</div>
       <ReactModal style={customStyles} isOpen={isOpen} onAfterOpen={afterOpenModal} onRequestClose={closeModal} shouldCloseOnOverlayClick={true}>
-        <button className='text-txt-primary border-2 border-border hover:border-red-600 mb-8 flex items-center gap-2' onClick={closeModal}>
+        <button className={closeStyle} onClick={closeModal}>
           <Icons name='close' size='28' color='red' />
         </button>
-        <img className='h-auto max-w-full pointer-events-none ' src={preview} alt='preview' />
+        {contents}
       </ReactModal>
     </div>
   )

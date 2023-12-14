@@ -2,6 +2,9 @@
 export const content = ['./frontend/**/*.{js,ts,jsx,tsx}']
 export const theme = {
  extend: {
+    fontFamily: {
+      'sans': ['Avenir Next', 'sans-serif']
+    },
     colors: {
       "bg-primary": "#0D0E0F",
       "bg-secondary": "#1A1A1A",
