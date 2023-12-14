@@ -4,6 +4,7 @@ import { defaultValues } from './utils'
 import { yupSchema } from './yupSchema'
 import { yupResolver } from '@hookform/resolvers/yup'
 import Form from './form/Form'
+import ATC from './buttons/ATC'
 import Standard from './buttons/Standard'
 import ReactModal from 'react-modal'
 
@@ -45,9 +46,10 @@ export default function App({ home }) {
   const isStandard = watch('standard')
 
   return (
-    <div className='window-form bg-bg-secondary w-full'>
+    <div className='window-form bg-bg-primary w-full'>
       {/* <Form /> */}
       <Standard isStandard={isStandard} register={register} />
+      <ATC />
     </div>
   )
 }
