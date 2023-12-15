@@ -3,10 +3,11 @@ import { useFormContext } from 'react-hook-form'
 import { minHeight } from '../App'
 import { cn } from '../utils'
 import { getCurrentProduct, getSelectedVariant } from '../ajax'
+import Checkbox from './Checkbox'
 
-export default function Standard() {
+export default function Standard({ setIsCustom }) {
   const [variants, setVariants] = useState([])
-  const { watch, register } = useFormContext()
+  const { watch, register, setValue } = useFormContext()
 
   const isStandard = watch('standard')
   useEffect(() => {
@@ -15,11 +16,23 @@ export default function Standard() {
     })
   }, [])
 
+  const handleClick = (e) => {
+    e.stopPropagation()
+    if (isChecked) {
+      setValue('standard', false)
+    } else {
+      setValue('standard', true)
+      setIsCustom(false)
+    }
+  }
+
+  const isChecked = watch('standard')
+
   return (
     <div className={cn('border border-border p-4 w-full bg-bg-primary', isStandard && 'text-accent ')}>
-      <div className='flex gap-2'>
-        <input style={minHeight} className='accent-accent w-4 ' type='checkbox' name='standard' id='standard' {...register('standard')} />
-        <label htmlFor='standard'>Order standard 18" x 68" size*</label>
+      <div className='flex items-center gap-2'>
+        <Checkbox onClick={handleClick} isChecked={isChecked} />
+        <span>Order standard 18" x 68" size*</span>
       </div>
       <div className='text-sm flex flex-col mt-1 ml-8 text-txt-secondary'>
         <span className='text-xs'>

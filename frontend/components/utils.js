@@ -43,6 +43,17 @@ export function checkABCErrors(errors) {
 }
 
 
+export const defaultWindowDefaults = {
+  a:'',
+  b:'',
+  c:'',
+  year:2023,
+  make:'',
+  model:'',
+  doors:'2DOOR',
+  class:'MIDSIZE',
+}
+
 
 export const defaultValues = {
   standard: false,

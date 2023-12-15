@@ -21,6 +21,7 @@ export const minHeight = {
 export default function App({ home }) {
   console.log('Home', home)
   const [imageFile, setImageFile] = useState(null)
+  const [isCustom, setIsCustom] = useState(false)
   const methods = useForm({
     resolver: yupResolver(yupSchema),
     defaultValues: defaultValues,
@@ -45,9 +46,11 @@ export default function App({ home }) {
     <FormProvider {...methods}>
       <div className='window-form bg-bg-primary w-full'>
         {/* <Form /> */}
-        <Standard />
-        <Custom />
-        <div className='checkout-btn dynamic-checkout-enabled '>
+        <div className='flex flex-col gap-2'>
+          <Standard setIsCustom={setIsCustom} />
+          <Custom setIsCustom={setIsCustom} isCustom={isCustom} />
+        </div>
+        <div className='checkout-btn dynamic-checkout-enabled mt-2 '>
           <Quantity />
           <ATC />
         </div>

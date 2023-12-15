@@ -18,8 +18,13 @@ function toUpper(data) {
 
 
 export const saveWindow = async (data) => {
+  let previousData = []
 const upperData = toUpper(data)
-// console.log(upperData)
+// compare with previous data
+if (previousData.includes(JSON.stringify(upperData))) {
+    console.log('No changes')
+    return upperData.json()
+}
 try {
     const res = await fetch('/a/server/save', {
         method: 'POST',
@@ -28,10 +33,13 @@ try {
         },
         body: JSON.stringify(upperData),
     })
+    if (!res.ok) throw new Error(res.statusText)    
     const saved = await res.json()
+    previousData.push(JSON.stringify(saved))
     return saved
 } catch (error) {
-    console.log(error) 
+    console.log('OOPS',error)
+    return error   
 }
 }
 

@@ -16,18 +16,18 @@ export default function WindowMeasure({ isStandard }) {
       <div className='flex gap-4 justify-between'>
         <div className='flex flex-col w-full'>
           <label htmlFor='a'>A:</label>
-          <input style={minHeight} disabled={isStandard} className='w-full' type='string' name='a' id='a' {...register('a')} />
+          <input style={minHeight} disabled={isStandard} className='w-full px-1' type='string' name='a' id='a' {...register('a')} />
         </div>
         <div className='flex flex-col w-full'>
           <label htmlFor='b'>B:</label>
-          <input style={minHeight} disabled={isStandard} className='w-full' type='string' name='b' id='b' {...register('b')} />
+          <input style={minHeight} disabled={isStandard} className='w-full px-1' type='string' name='b' id='b' {...register('b')} />
         </div>
         <div className='flex flex-col w-full'>
           <label htmlFor='c'>C:</label>
-          <input style={minHeight} disabled={isStandard} className='w-full' type='string' name='c' id='c' {...register('c')} />
+          <input style={minHeight} disabled={isStandard} className='w-full px-1' type='string' name='c' id='c' {...register('c')} />
         </div>
       </div>
-      {!isStandard && checkABCErrors(errors) && <p className='text-accent'> Please enter values for A B and C. </p>}
+      {checkABCErrors(errors) && <p className='text-red-500 text-center mt-2'> Please enter values for A B and C. </p>}
     </div>
   )
 }

@@ -1,11 +1,15 @@
 import React from 'react'
-import { cn, defaultValues } from '../utils'
+import { useFormContext } from 'react-hook-form'
+import { cn } from '../utils'
 
-export default function Radio({ children, register, watch, value, isStandard, setValue }) {
+export default function Radio({ children, value }) {
+  const { register, watch, setValue } = useFormContext()
+  const isStandard = watch('standard')
   const isSelected = watch('doors') === value
   const handleClick = () => {
     setValue('doors', value)
   }
+
   return (
     <div onClick={handleClick} className='flex gap-2 items-center'>
       <label className={cn('cursor-pointer', isSelected && !isStandard && 'text-accent border-b border-accent')} htmlFor={value}>
@@ -22,7 +26,6 @@ export default function Radio({ children, register, watch, value, isStandard, se
         name='doors'
         value={value}
         id={value}
-        checked
         className='hidden'
       />
     </div>
