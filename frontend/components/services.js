@@ -1,50 +1,39 @@
-export const getUsers = async () => {
-  const res = await fetch('/a/server/users')
-  const users = await res.json()
-  return users
-}
+import { toUpper, hashData } from './utils.js'
 
-function toUpper(data) {
-  const valuesUpper = {};
-  for (const [key, value] of Object.entries(data)) {
-    if (typeof value === 'string') {
-      valuesUpper[key] = value.toUpperCase();
-    } else {
-      valuesUpper[key] = value;
-    }
-  }
-  return valuesUpper;
-}
-
+let previousData = new Set()
 
 export const saveWindow = async (data) => {
-  let previousData = []
-const upperData = toUpper(data)
-// compare with previous data
-if (previousData.includes(JSON.stringify(upperData))) {
-    console.log('No changes')
-    return upperData.json()
-}
-try {
-    const res = await fetch('/a/server/save', {
-        method: 'POST',
-        headers: {
-        'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(upperData),
-    })
-    if (!res.ok) throw new Error(res.statusText)    
-    const saved = await res.json()
-    previousData.push(JSON.stringify(saved))
-    return saved
-} catch (error) {
-    console.log('OOPS',error)
-    return error   
-}
+ const upperData = toUpper(data)
+ const upperDataString = JSON.stringify(upperData)
+ const dataHash = hashData(upperDataString)
+
+ if (previousData.has(dataHash)) {
+  console.log('No changes')
+  return upperData
+ }
+
+ try {
+  const res = await fetch('/a/server/save', {
+   method: 'POST',
+   headers: { 'Content-Type': 'application/json' },
+   body: upperDataString,
+  })
+  if (!res.ok) throw new Error(res.statusText)
+  const saved = await res.json()
+  previousData.add(dataHash) // Store the hash
+  return saved
+ } catch (error) {
+  console.error('Error saving window:', error)
+  return error
+ }
 }
 
 export const getVehicles = async () => {
-    const res = await fetch('/a/server/vehicles')
-    const vehicles = await res.json()
-    console.log(vehicles)
+ try {
+  const res = await fetch('/a/server/vehicles')
+  if (!res.ok) throw new Error(res.statusText)
+  return await res.json()
+ } catch (error) {
+  console.error('Error fetching vehicles:', error)
+ }
 }
