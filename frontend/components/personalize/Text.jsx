@@ -13,20 +13,21 @@ export default function Text() {
     setValue,
   } = useFormContext()
 
+  const isCustomText = watch('customText')
+
   const handleClick = (e) => {
     e.stopPropagation()
-    setValue('customText', !watch('customText'))
+    setValue('customText', !isCustomText)
+    setValue('business', false)
   }
-
-  const isCustomText = watch('customText')
 
   return (
     <div className='flex flex-col border-b p-4  border border-border my-2'>
       <div className='flex gap-2 items-center'>
         <Checkbox onClick={handleClick} isChecked={isCustomText} />
-        <label htmlFor='customText'>Personalize with Text</label>
+        <label htmlFor='customText'>Personalize with Name / Text</label>
       </div>
-      <div className={cn('flex flex-col', !isCustomText && 'hidden')}>
+      <div className={cn('flex flex-col', !isCustomText && 'opacity-30')}>
         <label htmlFor='customTextField'>Your custom text:</label>
         <input
           className='px-2 py-1'
