@@ -11,54 +11,54 @@ import Quantity from './ui/Quantity.jsx'
 import Standard from './size/Standard.jsx'
 import Custom from './size/Custom.jsx'
 import ReactModal from 'react-modal'
+import Personalize from './personalize/Personalize.jsx'
 
 ReactModal.setAppElement('#root')
 
 export const minHeight = {
- minHeight: '0',
+  minHeight: '0',
 }
 
 export default function App({ home }) {
- console.log('Home', home)
- const [imageFile, setImageFile] = useState(null)
- const [isCustom, setIsCustom] = useState(false)
- const methods = useForm({
-  resolver: yupResolver(yupSchema),
-  defaultValues: defaultValues,
- })
+  console.log('Home', home)
+  const [imageFile, setImageFile] = useState(null)
+  const [isCustom, setIsCustom] = useState(false)
+  const methods = useForm({
+    resolver: yupResolver(yupSchema),
+    defaultValues: defaultValues,
+  })
 
- const onSubmit = async (data) => {
-  if (imageFile) {
-   const response = await uploadImage(imageFile)
-   console.log(response)
+  const onSubmit = async (data) => {
+    if (imageFile) {
+      const response = await uploadImage(imageFile)
+      console.log(response)
+    }
+    if (data.standard) {
+      console.log('User chose standard size')
+      return
+    }
+    const response = await saveWindow(data)
+    console.log(response)
   }
-  if (data.standard) {
-   console.log('User chose standard size')
-   return
-  }
-  const response = await saveWindow(data)
-  console.log(response)
- }
 
- // console.log(errors)
+  // console.log(errors)
 
- return (
-  <FormProvider {...methods}>
-   <div className='window-form bg-bg-primary w-full'>
-    {/* <Form /> */}
-    <div className='flex flex-col gap-2'>
-     <Standard setIsCustom={setIsCustom} />
-     <Custom
-      setIsCustom={setIsCustom}
-      isCustom={isCustom}
-     />
-    </div>
-    <div className='checkout-btn dynamic-checkout-enabled mt-2 '>
-     <Quantity />
-     <ATC />
-    </div>
-    <DevTool control={methods.control} />
-   </div>
-  </FormProvider>
- )
+  return (
+    <FormProvider {...methods}>
+      <div className='window-form bg-bg-primary w-full'>
+        {/* <Form /> */}
+        <div className='flex flex-col gap-2'>
+          <h2 className='text-2xl text-txt-primary font-sans'>Size:</h2>
+          <Standard setIsCustom={setIsCustom} />
+          <Custom setIsCustom={setIsCustom} isCustom={isCustom} />
+          <Personalize setImageFile={setImageFile} />
+        </div>
+        <div className='checkout-btn dynamic-checkout-enabled mt-2 '>
+          <Quantity />
+          <ATC />
+        </div>
+        <DevTool control={methods.control} />
+      </div>
+    </FormProvider>
+  )
 }

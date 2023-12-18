@@ -18,13 +18,14 @@ export const saveWindow = async (data) => {
    headers: { 'Content-Type': 'application/json' },
    body: upperDataString,
   })
-  if (!res.ok) throw new Error(res.statusText)
+  if (!res.ok) 
+    throw new Error(res.statusText)
   const saved = await res.json()
   previousData.add(dataHash) // Store the hash
   return saved
  } catch (error) {
   console.error('Error saving window:', error)
-  return error
+  throw error
  }
 }
 
