@@ -38,3 +38,13 @@ export const getVehicles = async () => {
   console.error('Error fetching vehicles:', error)
  }
 }
+
+export const getMakes = async () => {
+  try {
+    const res = await fetch('/a/server/makes')
+    if (!res.ok) throw new Error(res.statusText)
+    return await res.json()
+  } catch (error) {
+    console.error('Error fetching makes:', error)
+  }
+  }

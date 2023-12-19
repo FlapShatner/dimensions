@@ -11,6 +11,7 @@ export const getSelectedVariant =() => {
   return queryParams.get('variant');
 }
 
+
 export const getCurrentProduct = async () => {
     const url = getCurrentUrl()    
     const productId = url.split('/products/')[1].split('?')[0]
@@ -19,3 +20,20 @@ export const getCurrentProduct = async () => {
     return productJson
 }
 
+export const addToCart = async (formData) => {    
+    try {
+        const result = await fetch(window.Shopify.routes.root + 'cart/add.js', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        })
+        const resultJson = await result.json()
+        // console.log("resultJson", resultJson)
+        return resultJson
+    }
+    catch {
+        console.log('error')
+    }
+}

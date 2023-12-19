@@ -38,7 +38,7 @@ export default function Modal({ isOpen, setIsOpen, closeStyle, children, content
     setIsOpen(false)
   }
   const afterOpenModal = () => {
-    console.log('Modal is open')
+    // console.log('Modal is open')
   }
   return (
     <div className='max-w-lg'>

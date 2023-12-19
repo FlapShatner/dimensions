@@ -1,7 +1,6 @@
 import React, { useCallback, useState } from 'react'
 import Modal from '../common/Modal'
 import { useFormContext } from 'react-hook-form'
-import { useSessionStorage } from 'usehooks-ts'
 import { useDropzone } from 'react-dropzone'
 import { cn } from '../utils'
 import Icons from '../common/Icons'
@@ -9,7 +8,6 @@ import Icons from '../common/Icons'
 export default function Logo({ setImageFile }) {
   const [preview, setPreview] = useState(null)
   const [isOpen, setIsOpen] = useState(false)
-  const [sessionImage, setSessionImage] = useSessionStorage('logoFile', '')
   const { watch, setValue } = useFormContext()
   const isBusiness = watch('business')
   const isLogo = watch('logo')
@@ -23,7 +21,6 @@ export default function Logo({ setImageFile }) {
         reader.onload = () => {
           setPreview(reader.result)
           setImageFile(reader.result)
-          setSessionImage(file)
         }
       } else {
         console.log('File not accepted, must be an image')
@@ -32,12 +29,11 @@ export default function Logo({ setImageFile }) {
     [setImageFile]
   )
 
-  //   TODO: Use image in session storage to set image if one exists, here and in Business.jsx
+  // console.log('preview', preview)
 
   const handleReset = () => {
     setPreview(null)
-    setImageFile('logoFile', '')
-    setSessionImage('logoFile', '')
+    setImageFile(null)
   }
 
   const { getRootProps, getInputProps } = useDropzone({ onDrop })

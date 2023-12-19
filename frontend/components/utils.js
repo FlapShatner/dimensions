@@ -11,6 +11,14 @@ export const hashData = (data) => {
  return data.split('').reduce((hash, char) => hash + char.charCodeAt(0), 0)
 }
 
+export const formatPrice = (price, quantity) => {    
+  let result = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+  }).format((price * quantity) / 100)
+    return result
+}
+
 export const toUpper = (data) => Object.fromEntries(Object.entries(data).map(([key, value]) => [key, typeof value === 'string' ? value.toUpperCase() : value]))
 
 export function getYears() {
@@ -65,4 +73,29 @@ export const uploadImage = async (image) => {
   // console.log(error)
   return { error: error }
  }
+}
+
+export const getCurrentVariant = (product, values) => {
+  const { variants } = product
+  let currentVariant = ''
+  if (values.customText) {
+    variants.forEach((variant) => {
+      if (variant.title.includes('Text')) {
+        currentVariant = variant
+      }
+    })
+  } else if (values.business) {
+    variants.forEach((variant) => {
+      if (variant.title.includes('ready')) {
+        currentVariant = variant
+      }
+    })
+  } else {
+    variants.forEach((variant) => {
+      if (variant.title.includes('None')) {
+        currentVariant = variant
+      }
+    })
+  }
+  return currentVariant
 }

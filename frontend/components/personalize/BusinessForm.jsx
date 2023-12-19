@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Logo from '../form/Logo'
+import Logo from './Logo'
 import Checkbox from '../common/Checkbox'
 import { set, useFormContext } from 'react-hook-form'
 import { ErrorMessage } from '@hookform/error-message'
@@ -7,7 +7,7 @@ import { states } from '../lib/states'
 import { cn, formatPhoneNumber } from '../utils'
 import { minHeight } from '../App'
 
-export default function BusinessForm({ setImageFile, currentImage, setIsOpen }) {
+export default function BusinessForm({ setImageFile, imageFile, setIsOpen }) {
   const [isError, setIsError] = useState(false)
   const {
     formState: { errors },
@@ -123,7 +123,7 @@ export default function BusinessForm({ setImageFile, currentImage, setIsOpen }) 
               Use your logo*
             </label>
           </div>
-          <Logo currentImage={currentImage} setImageFile={setImageFile} />
+          <Logo imageFile={imageFile} setImageFile={setImageFile} />
         </div>
       </div>
     </div>

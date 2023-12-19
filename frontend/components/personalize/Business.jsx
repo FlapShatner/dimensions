@@ -5,9 +5,8 @@ import Modal from '../common/Modal'
 import BusinessForm from './BusinessForm'
 import { set, useFormContext } from 'react-hook-form'
 
-export default function Business({ setImageFile }) {
+export default function Business({ imageFile, setImageFile }) {
   const [isOpen, setIsOpen] = useState(false)
-  const [image, setImage] = useState(null)
   const { watch, setValue } = useFormContext()
   const isBusiness = watch('business')
   const name = watch('businessName')
@@ -25,10 +24,7 @@ export default function Business({ setImageFile }) {
     setValue('customText', false)
   }
 
-  const captureImageFile = (imageFile) => {
-    setImageFile(imageFile)
-    setImage(imageFile)
-  }
+  // console.log('imageFile', imageFile)
 
   return (
     <div className='flex items-start gap-2  border-border border  p-4 '>
@@ -40,7 +36,7 @@ export default function Business({ setImageFile }) {
         isOpen={isOpen}
         setIsOpen={setIsOpen}
         closeStyle='text-txt-primary border-2 border-border hover:border-red-600 flex w-full justify-end'
-        contents={<BusinessForm setIsOpen={setIsOpen} currentImage={image} setImageFile={captureImageFile} />}>
+        contents={<BusinessForm setIsOpen={setIsOpen} imageFile={imageFile} setImageFile={setImageFile} />}>
         <div className={cn('flex flex-col gap-2 cursor-pointer', isBusiness && name && ' pb-1')}>
           <span>Personalize With Business Info</span>
           {isBusiness && name && (
@@ -58,7 +54,7 @@ export default function Business({ setImageFile }) {
                 </div>
                 {isLogo && (
                   <div className=' w-1/3 flex flex-col gap-2'>
-                    <img src={image} alt='logo' />
+                    <img src={imageFile} alt='logo' />
                   </div>
                 )}
               </div>
