@@ -99,3 +99,7 @@ export const getCurrentVariant = (product, values) => {
   }
   return currentVariant
 }
+
+export function matchesValue(str, arr) {
+    return arr.some(item => item.value === str.toLowerCase());
+}

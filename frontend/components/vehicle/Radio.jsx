@@ -1,6 +1,7 @@
 import React from 'react'
 import { useFormContext } from 'react-hook-form'
 import { cn } from '../utils'
+import Icons from '../common/Icons'
 
 export default function Radio({ children, value }) {
   const { register, watch, setValue } = useFormContext()
@@ -11,8 +12,8 @@ export default function Radio({ children, value }) {
   }
 
   return (
-    <div onClick={handleClick} className='flex gap-2 items-center'>
-      <label className={cn('cursor-pointer', isSelected && !isStandard && 'text-accent border-b border-accent')} htmlFor={value}>
+    <div onClick={handleClick} className={cn('p-2 flex gap-2 items-center', isSelected && 'bg-input-bg')}>
+      <label className={cn('cursor-pointer', isSelected && !isStandard && 'text-accent border-b border-accent ')} htmlFor={value}>
         {children}
       </label>
       <input

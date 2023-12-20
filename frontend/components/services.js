@@ -48,3 +48,32 @@ export const getMakes = async () => {
     console.error('Error fetching makes:', error)
   }
   }
+
+  export const getVehicle = async (data) => {    
+    try {
+      const res = await fetch(`/a/server/vehicles`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      })
+      if (!res.ok) throw new Error(res.statusText)
+      return await res.json()
+    } catch (error) {
+      console.error('Error fetching vehicle:', error)
+    }
+  }
+
+  export const addMake = async (make) => {
+    try {
+      const res = await fetch('/a/server/makes', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(make),
+      })
+      if (!res.ok) throw new Error(res.statusText)
+      return await res.json()
+    } catch (error) {
+      console.error('Error adding make:', error)
+    }
+  }

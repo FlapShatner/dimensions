@@ -1,33 +1,45 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { cn } from '../utils'
+import { getVehicle } from '../services'
+import { useFormContext } from 'react-hook-form'
+import Icons from '../common/Icons'
 import Radio from './Radio'
+import Makes from './Makes'
+import Search from './Search'
 import { ErrorMessage } from '@hookform/error-message'
 
 export default function VehicleForm({ years, isStandard, errors, register }) {
+  const { watch } = useFormContext()
+
   return (
     <div className='flex flex-col border border-border p-4'>
       <div className='flex gap-4 mb-4'>
         <div className='flex flex-col'>
           <label htmlFor='year'>Year:</label>
-          <select {...register('year')} disabled={isStandard} className='px-2 py-[1px] bg-bg-secondary border border-border ' name='year' id='year'>
-            {years.map((year) => (
-              <option className='p-1' key={year} value={year}>
-                {year}
-              </option>
-            ))}
-          </select>
+          <div className=' relative flex items-center border border-border isolate'>
+            <div className='absolute right-1 -z-10'>
+              <Icons name='chevron-down' size='20' color='#D2D2D2' />
+            </div>
+            <select {...register('year')} disabled={isStandard} className='px-2 py-[1px] bg-transparent ' name='year' id='year'>
+              {years.map((year) => (
+                <option className='p-1 w-48 bg-bg-secondary' key={year} value={year}>
+                  {year}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
-        <div className='flex flex-col flex-1 w-12'>
+        <div className='flex flex-col w-full'>
           <label htmlFor='make'>Make:</label>
-          <input className='px-1' style={{ minHeight: '0' }} {...register('make')} disabled={isStandard} type='text' name='make' id='make' />
+          <Makes register={register} isStandard={isStandard} />
         </div>
-        <div className='flex flex-col flex-1 w-12'>
+        <div className='flex flex-col w-full  '>
           <label htmlFor='model'>Model:</label>
           <input
             style={{ minHeight: '0' }}
             {...register('model')}
             disabled={isStandard}
-            className='flex flex-shrink px-1'
+            className='flex flex-shrink px-1 border border-border h-7'
             type='text'
             name='model'
             id='model'
@@ -40,19 +52,37 @@ export default function VehicleForm({ years, isStandard, errors, register }) {
         <ErrorMessage errors={errors} name='model' render={({ message }) => <p className='text-red-500'>{message}</p>} />
       </div>
 
-      <div className=' flex gap-6 justify-between mt-4'>
-        <Radio value='2DOOR'>2 Door</Radio>
-        <Radio value='4DOOR'>4 Door</Radio>
-        <div className='flex gap-2'>
-          <label htmlFor='class'>Truck Class:</label>
-          <select {...register('class')} disabled={isStandard} className='bg-bg-secondary border border-border pl-1' name='class' id='class'>
-            <option value='MIDSIZE'>Mid Size</option>
-            <option value='HALF'>1/2 Ton</option>
-            <option value='THREEQUARTER'>3/4 Ton</option>
-            <option value='ONE'>1 Ton</option>
-            <option value='OTHER'>Other</option>
-          </select>
+      <div className=' flex gap-6 justify-start mt-4'>
+        <div className='flex border boder-border'>
+          <Radio value='2DOOR'>2 Door</Radio>
+          <Radio value='4DOOR'>4 Door</Radio>
         </div>
+        <div className='flex flex-col'>
+          <label htmlFor='class'>Truck Class:</label>
+          <div className=' relative flex items-center border border-border isolate'>
+            <div className='absolute right-1 -z-10'>
+              <Icons name='chevron-down' size='20' color='#D2D2D2' />
+            </div>
+            <select {...register('class')} disabled={isStandard} className='bg-transparent  pl-1' name='class' id='class'>
+              <option className='bg-bg-secondary' value='MIDSIZE'>
+                Mid Size
+              </option>
+              <option className='bg-bg-secondary' value='HALF'>
+                1/2 Ton
+              </option>
+              <option className='bg-bg-secondary' option value='THREEQUARTER'>
+                3/4 Ton
+              </option>
+              <option className='bg-bg-secondary' value='ONE'>
+                1 Ton
+              </option>
+              <option className='bg-bg-secondary' value='OTHER'>
+                Other
+              </option>
+            </select>
+          </div>
+        </div>
+        <Search />
       </div>
     </div>
   )

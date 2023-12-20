@@ -88,6 +88,7 @@ export default function App({ home }) {
       image = response
     }
     const variantId = getCurrentVariant(product, values).id
+
     let formData = {
       items: [
         {
@@ -99,15 +100,15 @@ export default function App({ home }) {
             _b: values.b,
             _c: values.c,
             _customText: values.customText,
-            customTextField: values.customTextField ? values.customTextField : null,
+            customTextField: values.customText ? values.customTextField : null,
             _business: values.business,
             businessName: values.business ? values.businessName : null,
-            slogan: values.slogan ? values.slogan : null,
-            city: values.city ? values.city : null,
-            state: values.state ? values.state : null,
-            phone: values.phone ? values.phone : null,
-            website: values.website ? values.website : null,
-            logo: logo,
+            slogan: values.business ? values.slogan : null,
+            city: values.business ? values.city : null,
+            state: values.business ? values.state : null,
+            phone: values.business ? values.phone : null,
+            website: values.business ? values.website : null,
+            logo: logo ? true : null,
             _image: logo ? image : null,
           },
         },

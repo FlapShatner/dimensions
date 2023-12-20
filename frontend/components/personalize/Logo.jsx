@@ -55,15 +55,7 @@ export default function Logo({ setImageFile }) {
       </div>
       {preview && isLogo && (
         <div className='flex flex-col justify-center items-center'>
-          <span className='text-center'>Click to enlarge</span>
-          <Modal
-            isOpen={isOpen}
-            setIsOpen={setIsOpen}
-            preview={preview}
-            closeStyle='text-txt-primary border-2 border-border hover:border-red-600 mb-8 flex items-center gap-2'
-            content={<img className='h-auto max-w-full pointer-events-none ' src={preview} alt='preview' />}>
-            <img className='cursor-zoom-in m-auto w-[200px] mt-2' src={preview} alt='preview' />
-          </Modal>
+          <img className='m-auto w-[200px] mt-2' src={preview} alt='preview' />
         </div>
       )}
       <div className='w-full flex justify-end'>
