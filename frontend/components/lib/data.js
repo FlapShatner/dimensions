@@ -10,6 +10,7 @@ export const defaultValues = {
  class: 'MIDSIZE',
  customText: false,
  customTextField: '',
+ notesField:'',
  business: false,
  logo: false,
  businessName: '',
