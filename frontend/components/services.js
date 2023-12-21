@@ -49,13 +49,14 @@ export const getMakes = async () => {
   }
   }
 
-  export const getVehicle = async (data) => {    
+  export const getVehicle = async (data) => {
+    const upperData = toUpper(data)    
     try {
       const res = await fetch(`/a/server/vehicles`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
+        body: JSON.stringify(upperData),
       })
       if (!res.ok) throw new Error(res.statusText)
       return await res.json()

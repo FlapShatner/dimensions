@@ -2,10 +2,8 @@ import React, { useState } from 'react'
 import { getVehicle } from '../services'
 import { useFormContext } from 'react-hook-form'
 
-export default function Search() {
-  // TODO: Add search functionality
-  const [matches, setMatches] = useState([])
-  const { watch } = useFormContext()
+export default function Search({ setIsMatch, setHasSearched }) {
+  const { watch, setValue } = useFormContext()
 
   const make = watch('make', '')
   const model = watch('model', '')
@@ -22,12 +20,18 @@ export default function Search() {
       class: classType ? classType : null,
     }
     getVehicle(data).then((data) => {
-      if (data && data.length === 0) return
-      setMatches(data)
+      setHasSearched(true)
+      if (data && data.length === 0) {
+        setIsMatch(false)
+        return
+      }
+      setIsMatch(true)
+      setValue('a', data[0].window[0].a)
+      setValue('b', data[0].window[0].b)
+      setValue('c', data[0].window[0].c)
     })
   }
 
-  console.log(matches)
   return (
     <div
       onClick={handleSearch}

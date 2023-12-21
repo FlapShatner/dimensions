@@ -11,7 +11,7 @@ export default function WindowMeasure({ isStandard }) {
     formState: { errors },
   } = useFormContext()
   return (
-    <div className={cn('border border-t-0 border-border p-4', isStandard && 'opacity-40')}>
+    <div className={cn('border border-t-0 border-border p-4 pt-0', isStandard && 'opacity-40')}>
       <span className='text-accent my-4'>Window measurements:</span>
       <div className='flex gap-4 justify-between'>
         <div className='flex flex-col w-full'>

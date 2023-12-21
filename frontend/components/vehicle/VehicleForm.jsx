@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { cn } from '../utils'
+import { cn, getYears } from '../utils'
 import { getVehicle } from '../services'
 import { useFormContext } from 'react-hook-form'
 import Icons from '../common/Icons'
@@ -8,9 +8,14 @@ import Makes from './Makes'
 import Search from './Search'
 import { ErrorMessage } from '@hookform/error-message'
 
-export default function VehicleForm({ years, isStandard, errors, register }) {
-  const { watch } = useFormContext()
-
+export default function VehicleForm({ setIsMatch, setHasSearched }) {
+  const {
+    watch,
+    formState: { errors },
+    register,
+  } = useFormContext()
+  const isStandard = watch('standard')
+  const years = getYears()
   return (
     <div className='flex flex-col border border-border p-4'>
       <div className='flex gap-4 mb-4'>
@@ -82,7 +87,7 @@ export default function VehicleForm({ years, isStandard, errors, register }) {
             </select>
           </div>
         </div>
-        <Search />
+        <Search setIsMatch={setIsMatch} setHasSearched={setHasSearched} />
       </div>
     </div>
   )

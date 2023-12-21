@@ -13,7 +13,7 @@ export default function Makes() {
   const value = watch('make', '')
 
   const createOption = (label) => {
-    console.log(label)
+    // console.log(label)
     const capitalizedLabel = label.charAt(0).toUpperCase() + label.slice(1)
 
     return {

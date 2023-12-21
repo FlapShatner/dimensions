@@ -14,6 +14,8 @@ export default function Vehicle({ setIsChecked, setMeasurements, setIsOpen }) {
   const [submitError, setSubmitError] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const [isMatch, setIsMatch] = useState(false)
+  const [hasSearched, setHasSearched] = useState(false)
 
   const {
     register,
@@ -55,8 +57,22 @@ export default function Vehicle({ setIsChecked, setMeasurements, setIsOpen }) {
     <div className={cn('flex flex-col gap-4', isStandard && 'opacity-40')}>
       <h2 className='text-txt-primary mb-3 text-3xl'>Vehicle Info:</h2>
       <div>
-        <VehicleForm years={years} isStandard={isStandard} errors={errors} register={register} />
-        <WindowMeasure isStandard={isStandard} />
+        <VehicleForm setHasSearched={setHasSearched} setIsMatch={setIsMatch} />
+        {hasSearched && (
+          <>
+            {isMatch ? (
+              <p className='p-4 border-x-border border-x'>
+                We have back window measurements for a vehicle that matches your information in our database. You may use them, or verify your measurements and
+                enter them below
+              </p>
+            ) : (
+              <p className='p-4 border-x-border border-x'>
+                We don't have window measurements for your vehicle in our database yet. Please measure your window and enter them below.
+              </p>
+            )}
+            <WindowMeasure isStandard={isStandard} />
+          </>
+        )}
       </div>
       <SubmissionMessages submitError={submitError} isSuccess={isSuccess} />
       <SubmitButton onSubmit={onSubmit} onError={onError} isLoading={isLoading} onClick={handleSubmit(onSubmit, onError)} />
