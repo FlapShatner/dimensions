@@ -38,6 +38,9 @@ export default function Text() {
           id='customTextField'
           disabled={!isCustomText}
         />
+        <label htmlFor='notesField'>Special instructions:</label>
+        <span>Text style, color, placement, etc.</span>
+        <input className='px-2 py-1' style={minHeight} {...register('notesField')} type='text' name='notesField' id='notesField' disabled={!isCustomText} />
         {isCustomText && <ErrorMessage errors={errors} name='customTextField' render={({ message }) => <p className='text-accent'>{message}</p>} />}
       </div>
     </div>

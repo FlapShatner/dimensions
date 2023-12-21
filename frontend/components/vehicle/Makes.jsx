@@ -44,7 +44,6 @@ export default function Makes() {
     try {
       const newOption = createOption(inputValue)
       const result = await addMake(newOption)
-      // console.log(result)
       setIsLoading(false)
       setOptions([...options, newOption])
       setValue('make', newOption.label)
