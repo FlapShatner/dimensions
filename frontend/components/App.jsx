@@ -28,21 +28,6 @@ export default function App({ home }) {
   const [product, setProduct] = useState(null)
   const [quantity, setQuantity] = useState(1)
   const [variants, setVariants] = useState([])
-  const [variant, setVariant] = useState(null)
-
-  const [formState, setFormState] = useState({
-    standard: false,
-    customSize: {
-      a: '',
-      b: '',
-      c: '',
-    },
-    customText: false,
-    customTextField: '',
-    business: false,
-    logo: false,
-    image: null,
-  })
 
   const methods = useForm({
     resolver: yupResolver(yupSchema),
@@ -103,6 +88,7 @@ export default function App({ home }) {
             customTextField: values.customText ? values.customTextField : null,
             _business: values.business,
             businessName: values.business ? values.businessName : null,
+            notesField: values.notesField ? values.notesField : null,
             slogan: values.business ? values.slogan : null,
             city: values.business ? values.city : null,
             state: values.business ? values.state : null,

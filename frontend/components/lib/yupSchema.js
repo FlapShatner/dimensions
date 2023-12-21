@@ -53,6 +53,7 @@ export const yupSchema = yup.object().shape({
   then: (yupSchema) => yupSchema.required('Please enter your custom text'),
   otherwise: (yupSchema) => yupSchema.notRequired(),
  }),
+ notesField: yup.string().notRequired(), 
  business: yup.boolean(),
  logo: yup.boolean(),
  businessName: yup.string().when('business', {
