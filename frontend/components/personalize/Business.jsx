@@ -17,6 +17,7 @@ export default function Business({ imageFile, setImageFile }) {
   const website = watch('website')
   const email = watch('email')
   const isLogo = watch('logo')
+  const isDesign = watch('designLogo')
 
   const handleClick = (e) => {
     e.stopPropagation()
@@ -52,7 +53,7 @@ export default function Business({ imageFile, setImageFile }) {
                   {website && <span className='text-xs'>{website}</span>}
                   {email && <span className='text-xs'>{email}</span>}
                 </div>
-                {isLogo && (
+                {isLogo && !isDesign && (
                   <div className=' w-1/3 flex flex-col gap-2'>
                     <img src={imageFile} alt='logo' />
                   </div>

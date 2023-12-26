@@ -8,24 +8,53 @@ import { cn, formatPhoneNumber } from '../utils'
 import { minHeight } from '../App'
 
 export default function BusinessForm({ setImageFile, imageFile, setIsOpen }) {
-  const [isError, setIsError] = useState(false)
+  const [isNameError, setisNameError] = useState(false)
+  const [isLogoError, setisLogoError] = useState(false)
+  const [logoError, setLogoError] = useState('')
   const {
     formState: { errors },
     watch,
     register,
     setValue,
+    getValues,
   } = useFormContext()
   const name = watch('businessName')
   const isBusiness = watch('business')
   const isLogo = watch('logo')
-
-  const handleClick = (e) => {
-    e.stopPropagation()
-    setValue('logo', !isLogo)
-  }
+  const isVector = watch('vector')
+  const isNonVector = watch('nonVector')
+  const isDesignLogo = watch('designLogo')
 
   const handleChange = (e) => {
     setValue(e.target.name, e.target.value)
+  }
+
+  const handleLogoClick = () => {
+    setValue('logo', !isLogo)
+    setValue('vector', false)
+    setValue('nonVector', false)
+    setValue('designLogo', false)
+  }
+
+  const handleDesignLogoClick = () => {
+    setValue('logo', true)
+    setValue('vector', false)
+    setValue('nonVector', false)
+    setValue('designLogo', !isDesignLogo)
+  }
+
+  const handleVectorClick = () => {
+    setValue('logo', true)
+    setValue('designLogo', false)
+    setValue('vector', !isVector)
+    setValue('nonVector', false)
+  }
+
+  const handleNonVectorClick = () => {
+    setValue('logo', true)
+    setValue('designLogo', false)
+    setValue('vector', false)
+    setValue('nonVector', !isNonVector)
   }
 
   const handlePhoneChange = (e) => {
@@ -35,9 +64,25 @@ export default function BusinessForm({ setImageFile, imageFile, setIsOpen }) {
 
   const onSubmit = () => {
     if (!name) {
-      setIsError(true)
+      setisNameError(true)
       return
     }
+    if (isLogo && !isDesignLogo && !isVector && !isNonVector) {
+      setisLogoError(true)
+      setLogoError('Please make a selection')
+      return
+    }
+    if (isNonVector && !imageFile) {
+      setisLogoError(true)
+      setLogoError('Please upload a file')
+      return
+    }
+    if (isVector && !imageFile) {
+      setisLogoError(true)
+      setLogoError('Please upload a file')
+      return
+    }
+
     setValue('business', true)
     setIsOpen(false)
   }
@@ -111,18 +156,52 @@ export default function BusinessForm({ setImageFile, imageFile, setIsOpen }) {
               <input style={minHeight} {...register('website')} type='url' name='website' id='website' onChange={handleChange} />
             </div>
           </div>
-          {isError && <p className='text-accent'>Please enter a business name</p>}
+          {isNameError && <p className='text-accent'>Please enter a business name</p>}
           <div onClick={onSubmit} className='flex border border-border p-2 text-accent justify-center hover:border-accent'>
             Done
           </div>
         </div>
         <div className='w-1/2'>
-          <div className={cn('flex gap-2 items-center mb-2 ')}>
-            <Checkbox isChecked={isLogo} onClick={handleClick} />
+          <div className='flex flex-col'>
+            <span className='text-txt-primary text-xl'>Logo:</span>
+            {isLogoError && <span className='text-accent'>{logoError}</span>}
+          </div>
+          <div className={cn('flex gap-2 items-center mt-2 mb-1 text-sm')}>
+            <Checkbox isChecked={!isLogo} onClick={handleLogoClick} />
             <label className='mt-0' htmlFor='logo'>
-              Use your logo*
+              No logo
             </label>
           </div>
+          <div className='mb-2'>
+            <div className={cn('flex gap-2 items-center text-sm ')}>
+              <Checkbox isChecked={isDesignLogo} onClick={handleDesignLogoClick} />
+              <label className='mt-0' htmlFor='designLogo'>
+                I need a custom logo designed
+              </label>
+            </div>
+            {isDesignLogo && (
+              <div className='mx-6'>
+                <label className='text-xs' htmlFor='logoNote'>
+                  Description / Notes
+                </label>
+                <textarea rows='2' id='logoNote' />
+              </div>
+            )}
+          </div>
+
+          <div className={cn('flex gap-2 items-center  my-1 text-sm ')}>
+            <Checkbox isChecked={isVector} onClick={handleVectorClick} />
+            <label className='mt-0' htmlFor='vector'>
+              I have a vector or .PNG image file*
+            </label>
+          </div>
+          <div className={cn('flex gap-2 items-center mb-1 text-sm')}>
+            <Checkbox isChecked={isNonVector} onClick={handleNonVectorClick} />
+            <label className='mt-0' htmlFor='nonVector'>
+              I have a non-vector image file*
+            </label>
+          </div>
+
           <Logo imageFile={imageFile} setImageFile={setImageFile} />
         </div>
       </div>

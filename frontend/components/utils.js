@@ -84,13 +84,27 @@ export const getCurrentVariant = (product, values) => {
         currentVariant = variant
       }
     })
-  } else if (values.business) {
+  } else if (values.vector) {
     variants.forEach((variant) => {
       if (variant.title.includes('ready')) {
         currentVariant = variant
       }
     })
-  } else {
+  } else if( values.nonVector) {
+    variants.forEach((variant) => {
+      if (variant.title.includes('recreate')) {
+        currentVariant = variant
+      }
+    })
+  } else if(values.designLogo) {
+    variants.forEach((variant) => {
+      if (variant.title.includes('design')) {
+        currentVariant = variant
+      }
+    })
+
+  }
+  else {
     variants.forEach((variant) => {
       if (variant.title.includes('None')) {
         currentVariant = variant
@@ -103,3 +117,42 @@ export const getCurrentVariant = (product, values) => {
 export function matchesValue(str, arr) {
     return arr.some(item => item.value === str.toLowerCase());
 }
+
+export function makePropertiesObject(values, logo, image){
+
+ 
+
+  function filterTruthyValues(obj) {  
+  const filteredEntries = Object.entries(obj).filter(([key, value]) => value);
+  return Object.fromEntries(filteredEntries);
+}
+
+  const vals = {
+      _standard: values.standard,
+            _a: values.a,
+            _b: values.b,
+            _c: values.c,
+            _customText: values.customText,
+            customTextField: values.customText ? values.customTextField : null,
+            notesField:  values.customText ? values.notesField : null,
+            _business: values.business,
+            businessName: values.business ? values.businessName : null,
+            slogan: values.business ? values.slogan : null,
+            city: values.business ? values.city : null,
+            state: values.business ? values.state : null,
+            phone: values.business ? values.phone : null,
+            website: values.business ? values.website : null,
+            logo: logo ? true : null,
+            designLogo: values.designLogo ? true : null,
+            vector: values.vector ? true : null,
+            nonVector: values.nonVector ? true : null,
+            _image: logo ? image : null,
+    }
+
+    const filtered = filterTruthyValues(vals)
+    // console.log('filtered:', filtered)
+    return filtered
+
+}
+
+

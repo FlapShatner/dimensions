@@ -1,8 +1,8 @@
 <div id="root">
   {% liquid
     # Relative to entrypointsDir
-    render 'vite-tag' with 'themeApp.css'
-    render 'vite-tag' with 'themeApp.jsx'
+    render 'vite-tag' with 'theme.css'
+    render 'vite-tag' with 'theme.jsx'
   %}
 </div>
 
@@ -15,8 +15,9 @@
   "name": "Dimensions",
   "templates": ["page", "product"],
   "target": "section",
-  "stylesheet": "themeApp.css",
-  "javascript": "themeApp.js",
+
   "settings": []
 }
 {% endschema %}
+
+// "stylesheet": "themeApp.css", // "javascript": "themeApp.js",

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { DevTool } from '@hookform/devtools'
 import { getCurrentProduct, addToCart } from './ajax.js'
-import { uploadImage, getCurrentVariant } from './utils.js'
+import { uploadImage, getCurrentVariant, makePropertiesObject } from './utils.js'
 import { useForm, FormProvider } from 'react-hook-form'
 import { defaultValues } from './lib/data.js'
 import { yupSchema } from './lib/yupSchema.js'
@@ -50,7 +50,7 @@ export default function App({ home }) {
     })
   }, [])
 
-  const values = getValues()
+  const values = watch()
   const customText = watch('customText')
   const customTextField = watch('customTextField', '')
   const business = watch('business')
@@ -73,6 +73,7 @@ export default function App({ home }) {
       image = response
     }
     const variantId = getCurrentVariant(product, values).id
+    const properties = makePropertiesObject(values, logo, image)
 
     let formData = {
       items: [
@@ -80,26 +81,13 @@ export default function App({ home }) {
           id: variantId,
           quantity: quantity,
           properties: {
-            _standard: values.standard,
-            _a: values.a,
-            _b: values.b,
-            _c: values.c,
-            _customText: values.customText,
-            customTextField: values.customText ? values.customTextField : null,
-            _business: values.business,
-            businessName: values.business ? values.businessName : null,
-            notesField: values.notesField ? values.notesField : null,
-            slogan: values.business ? values.slogan : null,
-            city: values.business ? values.city : null,
-            state: values.business ? values.state : null,
-            phone: values.business ? values.phone : null,
-            website: values.business ? values.website : null,
-            logo: logo ? true : null,
-            _image: logo ? image : null,
+            ...properties,
           },
         },
       ],
     }
+    console.log('formData', formData)
+    // console.log('values', values)
     addToCart(formData).then((data) => {
       if (data) {
         window.location.href = '/cart'
