@@ -13,6 +13,7 @@ import Custom from './size/Custom.jsx'
 import ReactModal from 'react-modal'
 import Personalize from './personalize/Personalize.jsx'
 import Price from './ui/Price.jsx'
+import Pricing from './ui/Pricing.jsx'
 
 ReactModal.setAppElement('#root')
 
@@ -62,7 +63,7 @@ export default function App({ home }) {
       return
     }
     if (business && !businessName) {
-      setSubmitError('Please enter your business name')
+      setSubmitError('Please enter your business information')
       return
     }
     let logo = false
@@ -99,7 +100,10 @@ export default function App({ home }) {
     <FormProvider {...methods}>
       <div className='window-form bg-bg-primary w-full'>
         <div className='flex flex-col gap-2'>
-          <Price quantity={quantity} values={values} product={product} />
+          <div className='flex justify-between min-w-max'>
+            <Price quantity={quantity} values={values} product={product} />
+            <Pricing />
+          </div>
           <h2 className='text-2xl text-txt-primary font-sans'>Size:</h2>
           <Standard setIsCustom={setIsCustom} />
           <Custom setIsCustom={setIsCustom} isCustom={isCustom} />
@@ -110,7 +114,7 @@ export default function App({ home }) {
           <Quantity quantity={quantity} setQuantity={setQuantity} />
           <ATC enabled={enabled} onSubmit={onSubmit} />
         </div>
-        <DevTool control={methods.control} />
+        {/* <DevTool control={methods.control} /> */}
       </div>
     </FormProvider>
   )

@@ -24,6 +24,7 @@ export default function BusinessForm({ setImageFile, imageFile, setIsOpen }) {
   const isVector = watch('vector')
   const isNonVector = watch('nonVector')
   const isDesignLogo = watch('designLogo')
+  const logoNote = watch('logoNote')
 
   const handleChange = (e) => {
     setValue(e.target.name, e.target.value)
@@ -72,6 +73,11 @@ export default function BusinessForm({ setImageFile, imageFile, setIsOpen }) {
       setLogoError('Please make a selection')
       return
     }
+    if (isDesignLogo && !logoNote) {
+      setisLogoError(true)
+      setLogoError('Please describe your custom logo')
+      return
+    }
     if (isNonVector && !imageFile) {
       setisLogoError(true)
       setLogoError('Please upload a file')
@@ -82,7 +88,6 @@ export default function BusinessForm({ setImageFile, imageFile, setIsOpen }) {
       setLogoError('Please upload a file')
       return
     }
-
     setValue('business', true)
     setIsOpen(false)
   }
@@ -184,7 +189,7 @@ export default function BusinessForm({ setImageFile, imageFile, setIsOpen }) {
                 <label className='text-xs' htmlFor='logoNote'>
                   Description / Notes
                 </label>
-                <textarea rows='2' id='logoNote' />
+                <textarea onChange={handleChange} {...register('logoNote')} name='logoNote' rows='2' id='logoNote' />
               </div>
             )}
           </div>

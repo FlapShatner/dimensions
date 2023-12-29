@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import ReactModal from 'react-modal'
 import Icons from './Icons'
 
-export default function Modal({ isOpen, setIsOpen, closeStyle, children, contents, maxWidth }) {
+export default function Modal({ isOpen, setIsOpen, closeStyle, children, contents, maxWidth, onClose }) {
   const customStyles = {
     overlay: {
       backgroundColor: 'hsla(0, 0%, 0%, 0.5)',
@@ -36,6 +36,7 @@ export default function Modal({ isOpen, setIsOpen, closeStyle, children, content
   const closeModal = (e) => {
     e.stopPropagation()
     setIsOpen(false)
+    onClose()
   }
   const afterOpenModal = () => {
     // console.log('Modal is open')

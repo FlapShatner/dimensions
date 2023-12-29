@@ -5,7 +5,12 @@ import { addMake, getMakes } from '../services.js'
 import { matchesValue } from '../utils.js'
 
 export default function Makes() {
-  const [options, setOptions] = useState([])
+  const [options, setOptions] = useState([
+    {
+      label: 'Loading...',
+      value: 'loading',
+    },
+  ])
   const [isLoading, setIsLoading] = useState(false)
   const [valueState, setValueState] = useState(null)
 

@@ -3,7 +3,7 @@ import { cn } from '../utils'
 import Checkbox from '../common/Checkbox'
 import Modal from '../common/Modal'
 import BusinessForm from './BusinessForm'
-import { set, useFormContext } from 'react-hook-form'
+import { useFormContext } from 'react-hook-form'
 
 export default function Business({ imageFile, setImageFile }) {
   const [isOpen, setIsOpen] = useState(false)
@@ -25,6 +25,13 @@ export default function Business({ imageFile, setImageFile }) {
     setValue('customText', false)
   }
 
+  const onClose = () => {
+    setValue('business', false)
+    setValue('vector', false)
+    setValue('nonVector', false)
+    setValue('designLogo', false)
+  }
+
   // console.log('imageFile', imageFile)
 
   return (
@@ -35,6 +42,7 @@ export default function Business({ imageFile, setImageFile }) {
       <Modal
         maxWidth='700px'
         isOpen={isOpen}
+        onClose={onClose}
         setIsOpen={setIsOpen}
         closeStyle='text-txt-primary border-2 border-border hover:border-red-600 flex w-full justify-end'
         contents={<BusinessForm setIsOpen={setIsOpen} imageFile={imageFile} setImageFile={setImageFile} />}>
@@ -53,6 +61,7 @@ export default function Business({ imageFile, setImageFile }) {
                   {website && <span className='text-xs'>{website}</span>}
                   {email && <span className='text-xs'>{email}</span>}
                 </div>
+                {isDesign && <span className='text-xs text-accent'> We'll design a logo for you</span>}
                 {isLogo && !isDesign && (
                   <div className=' w-1/3 flex flex-col gap-2'>
                     <img src={imageFile} alt='logo' />

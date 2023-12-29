@@ -84,19 +84,19 @@ export const getCurrentVariant = (product, values) => {
         currentVariant = variant
       }
     })
-  } else if (values.vector) {
+  } else if (values.vector && values.business) {
     variants.forEach((variant) => {
       if (variant.title.includes('ready')) {
         currentVariant = variant
       }
     })
-  } else if( values.nonVector) {
+  } else if( values.nonVector && values.business) {
     variants.forEach((variant) => {
       if (variant.title.includes('recreate')) {
         currentVariant = variant
       }
     })
-  } else if(values.designLogo) {
+  } else if(values.designLogo && values.business) {
     variants.forEach((variant) => {
       if (variant.title.includes('design')) {
         currentVariant = variant
@@ -104,7 +104,13 @@ export const getCurrentVariant = (product, values) => {
     })
 
   }
-  else {
+  else if(values.business){
+    variants.forEach((variant) => {
+      if (variant.title.includes('ready')) {
+        currentVariant = variant
+      }
+    })
+} else{
     variants.forEach((variant) => {
       if (variant.title.includes('None')) {
         currentVariant = variant
@@ -144,6 +150,7 @@ export function makePropertiesObject(values, logo, image){
             website: values.business ? values.website : null,
             logo: logo ? true : null,
             designLogo: values.designLogo ? true : null,
+            logoNote: values.designLogo ? values.logoNote : null,
             vector: values.vector ? true : null,
             nonVector: values.nonVector ? true : null,
             _image: logo ? image : null,

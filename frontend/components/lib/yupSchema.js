@@ -59,6 +59,11 @@ export const yupSchema = yup.object().shape({
  vector: yup.boolean(),
  nonVector: yup.boolean(),
  designLogo: yup.boolean(),
+  logoNote: yup.string().when('designLogo', {
+  is: true,
+  then: (yupSchema) => yupSchema.required('Please enter your logo note'),
+  otherwise: (yupSchema) => yupSchema.notRequired(),
+  }),
  businessName: yup.string().when('business', {
   is: true,
   then: (yupSchema) => yupSchema.required('Please enter your business name'),
