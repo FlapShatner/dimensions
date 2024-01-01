@@ -34,9 +34,17 @@ export default function Makes() {
     })
   }, [])
 
-  const handleChange = (newValue) => {
-    setValue('make', newValue.label)
-    setValueState(newValue)
+  const handleChange = (value, { action, removedValue }) => {
+    switch (action) {
+      case 'clear':
+        setValue('make', '')
+        setValueState(null)
+        break
+      default:
+        setValue('make', value.label)
+        setValueState(value)
+        break
+    }
   }
 
   const handleCreate = async (inputValue) => {
@@ -65,7 +73,7 @@ export default function Makes() {
       render={({ field }) => (
         <CreatableSelect
           {...field}
-          isClearable
+          isClearable={true}
           isDisabled={isLoading}
           isLoading={isLoading}
           onChange={handleChange}

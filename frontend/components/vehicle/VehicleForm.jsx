@@ -18,7 +18,8 @@ export default function VehicleForm({ setIsMatch, setHasSearched }) {
   const years = getYears()
   return (
     <div className='flex flex-col border border-border p-4'>
-      <div className='flex gap-4 mb-4'>
+      <span className='text-center text-accent'>Search our database for your truck. If we don't have it, add it!</span>
+      <div className='flex flex-col sm:flex-row gap-4 my-4'>
         <div className='flex flex-col'>
           <label htmlFor='year'>Year:</label>
           <div className=' relative flex items-center border border-border isolate'>
@@ -57,34 +58,36 @@ export default function VehicleForm({ setIsMatch, setHasSearched }) {
         <ErrorMessage errors={errors} name='model' render={({ message }) => <p className='text-red-500'>{message}</p>} />
       </div>
 
-      <div className=' flex gap-6 justify-start mt-4'>
-        <div className='flex border boder-border'>
-          <Radio value='2DOOR'>2 Door</Radio>
-          <Radio value='4DOOR'>4 Door</Radio>
-        </div>
-        <div className='flex flex-col'>
-          <label htmlFor='class'>Truck Class:</label>
-          <div className=' relative flex items-center border border-border isolate'>
-            <div className='absolute right-1 -z-10'>
-              <Icons name='chevron-down' size='20' color='#D2D2D2' />
+      <div className=' flex flex-col md:flex-row gap-6 justify-start mt-4'>
+        <div className='flex gap-8'>
+          <div className='flex border border-border'>
+            <Radio value='2DOOR'>2 Door</Radio>
+            <Radio value='4DOOR'>4 Door</Radio>
+          </div>
+          <div className='flex flex-col'>
+            <label htmlFor='class'>Truck Class:</label>
+            <div className=' relative flex items-center border border-border isolate'>
+              <div className='absolute right-1 -z-10'>
+                <Icons name='chevron-down' size='20' color='#D2D2D2' />
+              </div>
+              <select {...register('class')} disabled={isStandard} className='bg-transparent  pl-1' name='class' id='class'>
+                <option className='bg-bg-secondary' value='MIDSIZE'>
+                  Mid Size
+                </option>
+                <option className='bg-bg-secondary' value='HALF'>
+                  1/2 Ton
+                </option>
+                <option className='bg-bg-secondary' option value='THREEQUARTER'>
+                  3/4 Ton
+                </option>
+                <option className='bg-bg-secondary' value='ONE'>
+                  1 Ton
+                </option>
+                <option className='bg-bg-secondary' value='OTHER'>
+                  Other
+                </option>
+              </select>
             </div>
-            <select {...register('class')} disabled={isStandard} className='bg-transparent  pl-1' name='class' id='class'>
-              <option className='bg-bg-secondary' value='MIDSIZE'>
-                Mid Size
-              </option>
-              <option className='bg-bg-secondary' value='HALF'>
-                1/2 Ton
-              </option>
-              <option className='bg-bg-secondary' option value='THREEQUARTER'>
-                3/4 Ton
-              </option>
-              <option className='bg-bg-secondary' value='ONE'>
-                1 Ton
-              </option>
-              <option className='bg-bg-secondary' value='OTHER'>
-                Other
-              </option>
-            </select>
           </div>
         </div>
         <Search setIsMatch={setIsMatch} setHasSearched={setHasSearched} />

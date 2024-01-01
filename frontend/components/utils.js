@@ -19,6 +19,16 @@ export const formatPrice = (price, quantity) => {
     return result
 }
 
+export function sanitizeObject(obj) {
+    Object.keys(obj).forEach(key => {
+        if (typeof obj[key] === 'string') {
+            obj[key] = obj[key].replace(/[^a-zA-Z0-9 ]/g, '');
+        }
+    });
+    return obj;
+}
+
+
 export const toUpper = (data) => Object.fromEntries(Object.entries(data).map(([key, value]) => [key, typeof value === 'string' ? value.toUpperCase() : value]))
 
 export function getYears() {

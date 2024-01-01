@@ -54,7 +54,7 @@ export default function Vehicle({ setIsChecked, setMeasurements, setIsOpen }) {
   const isStandard = watch('standard')
 
   return (
-    <div className={cn('flex flex-col gap-4', isStandard && 'opacity-40')}>
+    <div className={cn('flex flex-col gap-4 max-w-xs sm:max-w-full', isStandard && 'opacity-40')}>
       <h2 className='text-txt-primary mb-3 text-3xl'>Vehicle Info:</h2>
       <div>
         <VehicleForm setHasSearched={setHasSearched} setIsMatch={setIsMatch} />
@@ -100,7 +100,7 @@ function SubmitButton({ isLoading, onSubmit, onError }) {
     <div
       onClick={handleSubmit(onSubmit, onError)}
       className={cn(
-        'w-1/2  m-auto border border-border text-accent text-xl flex items-center justify-center cursor-pointer hover:border-accent  hover:bg-bg-secondary transition-all mt-2 h-12',
+        'w-full md:w-1/2  m-auto border border-border text-accent text-xl flex items-center justify-center cursor-pointer hover:border-accent  hover:bg-bg-secondary transition-all mt-2 h-12',
         isLoading && 'border-accent'
       )}>
       {isLoading ? <Spinner /> : 'Submit'}

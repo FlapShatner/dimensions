@@ -42,7 +42,7 @@ export default function Modal({ isOpen, setIsOpen, closeStyle, children, content
     // console.log('Modal is open')
   }
   return (
-    <div className='max-w-lg'>
+    <div>
       <div onClick={openModal}>{children}</div>
       <ReactModal style={customStyles} isOpen={isOpen} onAfterOpen={afterOpenModal} onRequestClose={closeModal} shouldCloseOnOverlayClick={true}>
         <button className={closeStyle} onClick={closeModal}>

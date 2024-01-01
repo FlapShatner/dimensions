@@ -35,7 +35,7 @@ export default function Search({ setIsMatch, setHasSearched }) {
   return (
     <div
       onClick={handleSearch}
-      className='bg-txt-primary px-20 py-2 mt-4 text-center ml-auto text-bg-secondary font-semibold cursor-pointer border border-bg-secondary hover:bg-bg-secondary hover:text-txt-primary hover:border hover:border-border'>
+      className='bg-txt-primary px-20 py-2 mt-4 text-center m-auto md:ml-auto text-bg-secondary font-semibold cursor-pointer border border-bg-secondary hover:bg-bg-secondary hover:text-txt-primary hover:border hover:border-border'>
       Search
     </div>
   )

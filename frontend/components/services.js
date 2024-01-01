@@ -1,9 +1,10 @@
-import { toUpper, hashData } from './utils.js'
+import { toUpper, hashData, sanitizeObject } from './utils.js'
 
 let previousData = new Set()
 
 export const saveWindow = async (data) => {
- const upperData = toUpper(data)
+  const saniData = sanitizeObject(data)
+ const upperData = toUpper(saniData)
  const upperDataString = JSON.stringify(upperData)
  const dataHash = hashData(upperDataString)
 
