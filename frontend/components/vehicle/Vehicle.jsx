@@ -119,7 +119,7 @@ function GuideInstructions() {
 }
 
 function BackWindowGuide() {
-  return <img src='https://res.cloudinary.com/dkxssdk96/image/upload/f_auto,q_auto/v1/assets/maplwkrdmcmjgd3nw2r4' alt='Back window measurement guide' />
+  return <img src='https://res.cloudinary.com/dkxssdk96/image/upload/v1704474240/dxwyhdpdcumemft1kefi.jpg' alt='Back window measurement guide' />
 }
 
 function HighlightInputColor() {
