@@ -8,7 +8,7 @@ export const theme = {
     colors: {
       "bg-primary": "#0D0E0F",
       "bg-secondary": "#1A1A1A",
-      "accent": "#13FC00",
+      "accent": "#D2AC53",
       "btn-bg": "#000",
       "btn-border": "#D9D9D9",
       "txt-primary": "#fff",

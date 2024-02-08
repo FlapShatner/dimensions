@@ -1,14 +1,18 @@
 import React from 'react'
 import { useFormContext } from 'react-hook-form'
 import { cn } from '../utils'
+import { useAtom } from 'jotai'
+import { doorsAtom } from '../lib/atoms'
 import Icons from '../common/Icons'
 
 export default function Radio({ children, value }) {
+  const [doors, setDoors] = useAtom(doorsAtom)
   const { register, watch, setValue } = useFormContext()
   const isStandard = watch('standard')
   const isSelected = watch('doors') === value
   const handleClick = () => {
     setValue('doors', value)
+    setDoors(value)
   }
 
   return (

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { getVehicle } from '../services'
+// import { getVehicle } from '../services'
 import { useFormContext } from 'react-hook-form'
 
 export default function Search({ setIsMatch, setHasSearched }) {
@@ -12,24 +12,25 @@ export default function Search({ setIsMatch, setHasSearched }) {
   const doors = watch('doors', '')
 
   const handleSearch = () => {
-    const data = {
-      year: year ? year : null,
-      make: make ? make : null,
-      model: model ? model : null,
-      doors: doors ? doors : null,
-      class: classType ? classType : null,
-    }
-    getVehicle(data).then((data) => {
-      setHasSearched(true)
-      if (data && data.length === 0) {
-        setIsMatch(false)
-        return
-      }
-      setIsMatch(true)
-      setValue('a', data[0].window[0].a)
-      setValue('b', data[0].window[0].b)
-      setValue('c', data[0].window[0].c)
-    })
+    console.log('searching')
+    // const data = {
+    //   year: year ? year : null,
+    //   make: make ? make : null,
+    //   model: model ? model : null,
+    //   doors: doors ? doors : null,
+    //   class: classType ? classType : null,
+    // }
+    // getVehicle(data).then((data) => {
+    //   setHasSearched(true)
+    //   if (data && data.length === 0) {
+    //     setIsMatch(false)
+    //     return
+    //   }
+    //   setIsMatch(true)
+    //   setValue('a', data[0].window[0].a)
+    //   setValue('b', data[0].window[0].b)
+    //   setValue('c', data[0].window[0].c)
+    // })
   }
 
   return (

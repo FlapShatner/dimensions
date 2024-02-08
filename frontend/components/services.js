@@ -2,6 +2,9 @@ import { toUpper, hashData, sanitizeObject } from './utils.js'
 
 let previousData = new Set()
 
+const isDev = import.meta.env.DEV
+const server = '/a/server/'
+
 export const saveWindow = async (data) => {
   const saniData = sanitizeObject(data)
  const upperData = toUpper(saniData)
@@ -14,7 +17,7 @@ export const saveWindow = async (data) => {
  }
 
  try {
-  const res = await fetch('/a/server/save', {
+  const res = await fetch(server + 'save', {
    method: 'POST',
    headers: { 'Content-Type': 'application/json' },
    body: upperDataString,
@@ -32,7 +35,7 @@ export const saveWindow = async (data) => {
 
 export const getVehicles = async () => {
  try {
-  const res = await fetch('/a/server/vehicles')
+  const res = await fetch(server+ 'vehicles')
   if (!res.ok) throw new Error(res.statusText)
   return await res.json()
  } catch (error) {
@@ -40,25 +43,34 @@ export const getVehicles = async () => {
  }
 }
 
-export const getMakes = async () => {
+export const getMakes = async () => {  
   try {
-    const res = await fetch('/a/server/makes')
+    const res = await fetch(server+'makes')
     if (!res.ok) throw new Error(res.statusText)
-    return await res.json()
+    return await res.json()  
   } catch (error) {
     console.error('Error fetching makes:', error)
   }
   }
 
-  export const getVehicle = async (data) => {
-    const upperData = toUpper(data)    
+  export const getModels = async (data) => {
     try {
-      const res = await fetch(`/a/server/vehicles`,
+      const res = await fetch(server+`vehicles`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(upperData),
+        body: JSON.stringify(data),
       })
+      if (!res.ok) throw new Error(res.statusText)
+      return await res.json()
+  } catch (error) {
+    console.error('Error fetching models:', error)
+  }
+  }
+
+  export const getVehicleWithWindow = async (data) => {
+    try {
+      const res = await fetch(`${server}vehicle/${data}`)
       if (!res.ok) throw new Error(res.statusText)
       return await res.json()
     } catch (error) {
@@ -68,7 +80,7 @@ export const getMakes = async () => {
 
   export const addMake = async (make) => {
     try {
-      const res = await fetch('/a/server/makes', {
+      const res = await fetch(server+'makes', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(make),
@@ -79,3 +91,5 @@ export const getMakes = async () => {
       console.error('Error adding make:', error)
     }
   }
+
+  

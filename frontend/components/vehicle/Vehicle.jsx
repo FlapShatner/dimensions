@@ -76,10 +76,10 @@ export default function Vehicle({ setIsChecked, setMeasurements, setIsOpen }) {
       </div>
       <SubmissionMessages submitError={submitError} isSuccess={isSuccess} />
       <SubmitButton onSubmit={onSubmit} onError={onError} isLoading={isLoading} onClick={handleSubmit(onSubmit, onError)} />
-      <GuideInstructions />
-      <BackWindowGuide />
+      {/* <GuideInstructions />
+      <BackWindowGuide /> */}
 
-      <WindowText />
+      {/* <WindowText /> */}
       {!isStandard && <HighlightInputColor />}
     </div>
   )
@@ -111,9 +111,9 @@ function SubmitButton({ isLoading, onSubmit, onError }) {
 function GuideInstructions() {
   return (
     <p className='mt-1 text-center text-accent flex items-center justify-center gap-2'>
-      <Icons name='down' size='16' color='#13FC00' />
+      <Icons name='down' size='16' color='#D2AC53' />
       Follow the guide below and get your truck window measurements
-      <Icons name='down' size='16' color='#13FC00' />
+      <Icons name='down' size='16' color='#D2AC53' />
     </p>
   )
 }
@@ -127,7 +127,7 @@ function HighlightInputColor() {
     <style>
       {`
         input, select{
-            color:#13FC00;
+            color:#D2AC53;
         }
         `}
     </style>

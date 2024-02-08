@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import CreatableSelect from 'react-select/creatable'
-import { useFormContext, Controller } from 'react-hook-form'
+import { useFormContext, Controller, set } from 'react-hook-form'
 import { addMake, getMakes } from '../services.js'
 import { matchesValue } from '../utils.js'
+import { useAtom } from 'jotai'
+import { makeAtom, disableModelAtom } from '../lib/atoms.js'
 
 export default function Makes() {
+  const [makeObject, setMakeObject] = useAtom(makeAtom)
+  const [disableModels, setDisableModels] = useAtom(disableModelAtom)
   const [options, setOptions] = useState([
     {
       label: 'Loading...',
       value: 'loading',
+      id: '',
     },
   ])
   const [isLoading, setIsLoading] = useState(false)
@@ -17,19 +22,20 @@ export default function Makes() {
   const { control, setValue, watch } = useFormContext()
   const value = watch('make', '')
 
-  const createOption = (label) => {
-    // console.log(label)
-    const capitalizedLabel = label.charAt(0).toUpperCase() + label.slice(1)
+  const createOption = (make) => {
+    const { name, id } = make
+    const capitalizedLabel = name.charAt(0).toUpperCase() + name.slice(1)
 
     return {
+      id: id,
       label: capitalizedLabel,
-      value: label.toLowerCase().replace(/\W/g, ''),
+      value: name.toLowerCase().replace(/\W/g, ''),
     }
   }
 
   useEffect(() => {
     getMakes().then((data) => {
-      const makes = data.map((make) => createOption(make.make))
+      const makes = data.map((make) => createOption(make))
       setOptions(makes)
     })
   }, [])
@@ -39,10 +45,13 @@ export default function Makes() {
       case 'clear':
         setValue('make', '')
         setValueState(null)
+        setDisableModels(true)
         break
       default:
         setValue('make', value.label)
         setValueState(value)
+        setMakeObject(value)
+        setDisableModels(false)
         break
     }
   }
@@ -108,7 +117,7 @@ export default function Makes() {
               height: '28px !important',
               padding: '0',
               paddingLeft: '4px',
-              color: '#13FC00',
+              color: '#D2AC53',
             }),
             placeholder: (base) => ({
               ...base,
@@ -116,7 +125,7 @@ export default function Makes() {
               paddingLeft: '4px',
               minHeight: '0',
               height: '28px',
-              color: '#13FC00',
+              color: '#D2AC53',
             }),
             indicatorsContainer: (base) => ({
               ...base,
@@ -127,7 +136,7 @@ export default function Makes() {
             menu: (base) => ({
               ...base,
               backgroundColor: '#1A1A1A',
-              color: '#13FC00',
+              color: '#D2AC53',
               border: '1px solid #D2D2D2',
               borderRadius: 'none',
             }),
@@ -135,11 +144,11 @@ export default function Makes() {
             option: (base, state) => ({
               ...base,
               backgroundColor: state.isFocused ? '#252525fb' : '#1A1A1A',
-              color: '#13FC00',
+              color: '#D2AC53',
             }),
             singleValue: (base) => ({
               ...base,
-              color: '#13FC00',
+              color: '#D2AC53',
               minHeight: '0',
               height: '28px',
             }),
