@@ -1,13 +1,34 @@
 import React, { useEffect, useState } from 'react'
 import CreatableSelect from 'react-select/creatable'
-import { useFormContext, Controller } from 'react-hook-form'
+import { useFormContext, Controller, set } from 'react-hook-form'
 import { getModels, getVehicleWithWindow } from '../services'
-import { useAtom } from 'jotai'
-import { vehiclesAtom, makeAtom, yearAtom, selectedVehicleAtom, doorsAtom } from '../lib/atoms.js'
+import { useAtom, useSetAtom, useAtomValue } from 'jotai'
+import {
+  vehiclesAtom,
+  makeAtom,
+  yearAtom,
+  selectedModelAtom,
+  doorsAtom,
+  disableWindowAtom,
+  disableDoorAtom,
+  disableModelAtom,
+  loadingWindowAtom,
+  vehicleWithWindowAtom,
+} from '../lib/atoms.js'
 
 function Models() {
   const [vehiclesArray, setVehiclesArray] = useAtom(vehiclesAtom)
-  const [doors, setDoors] = useAtom(doorsAtom)
+  const [selectedModel, setSelectedModel] = useAtom(selectedModelAtom)
+  const [loadingWindow, setLoadingWindow] = useAtom(loadingWindowAtom)
+  const setDisableDoor = useSetAtom(disableDoorAtom)
+  const setDisableWindow = useSetAtom(disableWindowAtom)
+
+  const setVehicleWithWindow = useSetAtom(vehicleWithWindowAtom)
+  const disableModel = useAtomValue(disableModelAtom)
+
+  const makeValue = useAtomValue(makeAtom)
+  const year = useAtomValue(yearAtom)
+  const doors = useAtomValue(doorsAtom)
   const [options, setOptions] = useState([
     {
       label: 'Loading...',
@@ -16,23 +37,25 @@ function Models() {
   ])
   const [isLoading, setIsLoading] = useState(false)
   const [valueState, setValueState] = useState(null)
-  const [makeValue, setMakeValue] = useAtom(makeAtom)
-  const [year, setYear] = useAtom(yearAtom)
-  const [selectedVehicle, setSelectedVehicle] = useAtom(selectedVehicleAtom)
+
   const { control, setValue, watch } = useFormContext()
 
   const createOptions = (vehicles) => {
-    const uniqueModelNames = [...new Set(vehicles.map((vehicle) => vehicle.Model.name))]
-    return uniqueModelNames.map((model) => {
-      return {
-        label: model,
-        value: model,
-      }
-    })
+    try {
+      const uniqueModelNames = [...new Set(vehicles.map((vehicle) => vehicle.Model.name))]
+      return uniqueModelNames.map((model) => {
+        return {
+          label: model,
+          value: model,
+        }
+      })
+    } catch (error) {
+      console.log('Error creating options:', error)
+    }
   }
 
   useEffect(() => {
-    console.log('makeValue', makeValue, 'year', year)
+    if (!makeValue) return
     getModels({ id: makeValue.id, year: year })
       .then((data) => {
         if (!data || data.length === 0) {
@@ -51,15 +74,21 @@ function Models() {
       .catch((error) => console.error('Error fetching models:', error))
   }, [makeValue, year])
 
-  const getSelectedVehicle = async (model) => {
-    const selectedVehicles = vehiclesArray.filter((vehicle) => vehicle.Model.name === model)
-    const selectedVehicle = await selectedVehicles.find((vehicle) => vehicle.doors === doors)
-    console.log('selectedVehicle', selectedVehicle)
-    const vehicleId = selectedVehicle.id
-    const vehicleWithWindow = getVehicleWithWindow(vehicleId)
+  const getSelectedModel = async (model) => {
+    setLoadingWindow(true)
+    const modelArray = vehiclesArray.filter((vehicle) => vehicle.Model.name === model)
+    setSelectedModel(modelArray)
+
+    const selectedVehicle = (await modelArray.find((vehicle) => vehicle.doors === doors)) ?? modelArray[0]
+    const vehicleId = await selectedVehicle.id
+    const vehicleWithWindow = await getVehicleWithWindow(vehicleId)
+    setLoadingWindow(false)
+    setDisableDoor(false)
+    setDisableWindow(false)
+    return await vehicleWithWindow
   }
 
-  const handleChange = (value, { action, removedValue }) => {
+  const handleChange = async (value, { action, removedValue }) => {
     switch (action) {
       case 'clear':
         setValue('model', '')
@@ -68,7 +97,8 @@ function Models() {
       default:
         setValue('model', value.label)
         setValueState(value)
-        setSelectedVehicle(getSelectedVehicle(value.label))
+        setVehicleWithWindow(await getSelectedModel(value.label))
+        console.log('withwindow:', await getSelectedModel(value.label))
         break
     }
   }
@@ -84,7 +114,7 @@ function Models() {
           <CreatableSelect
             {...field}
             isClearable={true}
-            isDisabled={isLoading}
+            isDisabled={disableModel}
             isLoading={isLoading}
             onChange={handleChange}
             onCreateOption={handleCreate}
@@ -108,9 +138,10 @@ function Models() {
                 padding: '0',
                 height: '28px',
               }),
-              container: (base) => ({
+              container: (base, state) => ({
                 ...base,
                 width: '100%',
+                opacity: state.isDisabled ? '0.5' : '1',
               }),
               input: (base) => ({
                 ...base,
@@ -120,13 +151,14 @@ function Models() {
                 paddingLeft: '4px',
                 color: '#D2AC53',
               }),
-              placeholder: (base) => ({
+              placeholder: (base, state) => ({
                 ...base,
                 padding: '0',
                 paddingLeft: '4px',
                 minHeight: '0',
                 height: '28px',
                 color: '#D2AC53',
+                opacity: state.isDisabled ? '0.5' : '1',
               }),
               indicatorsContainer: (base) => ({
                 ...base,
@@ -140,6 +172,15 @@ function Models() {
                 color: '#D2AC53',
                 border: '1px solid #D2D2D2',
                 borderRadius: 'none',
+                maxHeight: '160px',
+                overflowY: 'hidden',
+                paddingBottom: 0,
+              }),
+              menuList: (base) => ({
+                ...base,
+                padding: 0,
+                maxHeight: '160px',
+                overflowY: 'scroll',
               }),
 
               option: (base, state) => ({

@@ -1,23 +1,39 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { cn } from '../utils'
 import WindowImage from './WindowImage'
 import SizeBox from './SizeBox'
-import { useAtom } from 'jotai'
-import { selectedVehicleAtom } from '../lib/atoms'
+import { useAtomValue, useAtom } from 'jotai'
+import { vehicleWithWindowAtom, loadingWindowAtom, disableWindowAtom } from '../lib/atoms'
 
 function Measurements() {
-  const [selectedVehicle] = useAtom(selectedVehicleAtom)
-  console.log('selectedVehicle', selectedVehicle)
-  //   const { a, b, c } = selectedVehicle.WindowSize
+  const selectedVehicle = useAtomValue(vehicleWithWindowAtom)
+  const loadingWindow = useAtomValue(loadingWindowAtom)
+  const [disableWindow] = useAtom(disableWindowAtom)
+  const [windowSize, setWindowSize] = useState({
+    a: 0,
+    b: 0,
+    c: 0,
+  })
+  useEffect(() => {
+    if (selectedVehicle && selectedVehicle.WindowSize) {
+      setWindowSize({
+        a: selectedVehicle.WindowSize.a,
+        b: selectedVehicle.WindowSize.b,
+        c: selectedVehicle.WindowSize.c,
+      })
+    }
+  }, [selectedVehicle])
+
   return (
-    <div className='mt-4'>
-      <SizeBox className='ml-20' size='a'>
+    <div className={cn('mt-4', disableWindow ? 'opacity-50' : 'opacity-100')}>
+      <SizeBox className='ml-20' size={loadingWindow ? '0' : windowSize.a}>
         Top Width
       </SizeBox>
       <div className='flex gap-4 items-center'>
-        <SizeBox size='a'>Window Height</SizeBox>
+        <SizeBox size={loadingWindow ? '0' : windowSize.b}>Window Height</SizeBox>
         <WindowImage />
       </div>
-      <SizeBox className='ml-20' size='c'>
+      <SizeBox className='ml-20' size={loadingWindow ? '0' : windowSize.c}>
         Bottom Width
       </SizeBox>
     </div>

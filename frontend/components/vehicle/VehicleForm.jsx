@@ -6,15 +6,18 @@ import Icons from '../common/Icons'
 import Radio from './Radio'
 import Makes from './Makes'
 import Measurements from './Measurements'
+import Doors from './Doors'
 import Class from './Class'
 import Search from './Search'
 import { ErrorMessage } from '@hookform/error-message'
 import Models from './Models'
 import { useAtom } from 'jotai'
-import { disableModelAtom, yearAtom } from '../lib/atoms'
+import { disableModelAtom, yearAtom, disableWindowAtom, disableDoorAtom } from '../lib/atoms'
 
 export default function VehicleForm({ setIsMatch, setHasSearched }) {
   const [modelDisable] = useAtom(disableModelAtom)
+  const [windowDisable] = useAtom(disableWindowAtom)
+  const [doorDisable] = useAtom(disableDoorAtom)
   const [year, setYear] = useAtom(yearAtom)
   const {
     watch,
@@ -53,12 +56,8 @@ export default function VehicleForm({ setIsMatch, setHasSearched }) {
           <Makes register={register} isStandard={isStandard} />
         </div>
         <div className='flex flex-col w-full  '>
-          {!modelDisable && (
-            <>
-              <label htmlFor='model'>Model:</label>
-              <Models register={register} isStandard={isStandard} />
-            </>
-          )}
+          <label htmlFor='model'>Model:</label>
+          <Models register={register} isStandard={isStandard} />
         </div>
       </div>
 
@@ -67,13 +66,13 @@ export default function VehicleForm({ setIsMatch, setHasSearched }) {
         <ErrorMessage errors={errors} name='model' render={({ message }) => <p className='text-red-500'>{message}</p>} />
       </div>
 
-      <div className=' flex flex-col gap-6 justify-start mt-4'>
+      <div className=' flex flex-col gap-6 justify-start'>
         <div className='flex gap-8 justify-start'>
-          <div className='flex border border-border'>
-            <Radio value='2DOOR'>2 Door</Radio>
-            <Radio value='4DOOR'>4 Door</Radio>
+          <div>
+            <span>Doors:</span>
+            <Doors />
+            {/* <Class register={register} isStandard={isStandard} /> */}
           </div>
-          {/* <Class register={register} isStandard={isStandard} /> */}
         </div>
       </div>
       <Measurements />
