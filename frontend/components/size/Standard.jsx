@@ -1,31 +1,28 @@
-import React, { useEffect, useState } from 'react'
-import { useFormContext } from 'react-hook-form'
-import { minHeight } from '../App'
+import React from 'react'
 import { cn } from '../utils'
 import { getCurrentProduct, getSelectedVariant } from '../ajax'
+import { useAtom, useSetAtom } from 'jotai'
+import { isStandardAtom, isCustomAtom } from '../lib/atoms'
 import Checkbox from '../common/Checkbox'
 
-export default function Standard({ setIsCustom }) {
-  const { watch, register, setValue } = useFormContext()
-
-  const isStandard = watch('standard')
+export default function Standard() {
+  const [isStandard, setIsStandard] = useAtom(isStandardAtom)
+  const setIsCustom = useSetAtom(isCustomAtom)
 
   const handleClick = (e) => {
     e.stopPropagation()
-    if (isChecked) {
-      setValue('standard', false)
+    if (isStandard) {
+      setIsStandard(false)
     } else {
-      setValue('standard', true)
+      setIsStandard(true)
       setIsCustom(false)
     }
   }
 
-  const isChecked = watch('standard')
-
   return (
     <div className={cn('border border-border p-4 w-full bg-bg-primary', isStandard && 'text-accent ')}>
       <div className='flex items-center gap-2'>
-        <Checkbox onClick={handleClick} isChecked={isChecked} />
+        <Checkbox onClick={handleClick} isChecked={isStandard} />
         <span>Order standard 18" x 68" size*</span>
       </div>
       <div className='text-sm flex flex-col mt-1 ml-8 text-txt-secondary'>

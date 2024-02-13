@@ -1,4 +1,5 @@
 import React from 'react'
+import Icons from '../common/Icons'
 import { cn } from '../utils'
 
 function SizeBox({ size, className, children }) {

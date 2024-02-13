@@ -2,10 +2,17 @@ import React, { useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { ErrorMessage } from '@hookform/error-message'
 import { minHeight } from '../App'
-import { cn } from '../utils'
 import Checkbox from '../common/Checkbox'
+import { cn } from '../utils'
+import { useAtom } from 'jotai'
+import { isTextAtom, isBusinessAtom, customTextAtom, notesAtom } from '../lib/atoms'
 
 export default function Text() {
+  const [isCustomText, setIsCustomText] = useAtom(isTextAtom)
+  const [isBusiness, setIsBusiness] = useAtom(isBusinessAtom)
+  const [customText, setCustomText] = useAtom(customTextAtom)
+  const [notes, setNotes] = useAtom(notesAtom)
+
   const {
     formState: { errors },
     watch,
@@ -13,12 +20,10 @@ export default function Text() {
     setValue,
   } = useFormContext()
 
-  const isCustomText = watch('customText')
-
   const handleClick = (e) => {
     e.stopPropagation()
-    setValue('customText', !isCustomText)
-    setValue('business', false)
+    setIsCustomText(!isCustomText)
+    setIsBusiness(false)
   }
 
   return (
@@ -32,7 +37,8 @@ export default function Text() {
         <input
           className='px-2 py-1  placeholder:opacity-60'
           style={minHeight}
-          {...register('customTextField')}
+          onChange={(e) => setCustomText(e.target.value)}
+          value={customText}
           type='text'
           name='customTextField'
           id='customTextField'
@@ -44,7 +50,8 @@ export default function Text() {
           <input
             className='px-2 py-1 placeholder:opacity-60'
             style={minHeight}
-            {...register('notesField')}
+            onChange={(e) => setNotes(e.target.value)}
+            value={notes}
             type='text'
             name='notesField'
             id='notesField'
@@ -52,7 +59,7 @@ export default function Text() {
             placeholder='Text color, style, placement, etc.'
           />
         </div>
-        {isCustomText && <ErrorMessage errors={errors} name='customTextField' render={({ message }) => <p className='text-accent'>{message}</p>} />}
+        {/* TODO: Error Messages */}
       </div>
     </div>
   )

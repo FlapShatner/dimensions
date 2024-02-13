@@ -23,3 +23,13 @@ export const selectedModelAtom = atom({})
 export const vehicleWithWindowAtom = atom({})
 
 export const modelStateAtom = atom({})
+
+export const isStandardAtom = atom(false)
+export const isCustomAtom = atom(false)
+export const isBusinessAtom = atom(false)
+export const isTextAtom = atom(false)
+
+export const customTextAtom = atom('')
+export const notesAtom = atom('')
+
+export const enableAddToCartAtom = atom(false)
