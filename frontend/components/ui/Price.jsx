@@ -1,9 +1,16 @@
 import React from 'react'
-import { formatPrice, getCurrentVariant } from '../utils'
+import { useCurrentVariant } from '../../hooks/useCurrentVariant.jsx'
+import { useAtomValue } from 'jotai'
+import { productAtom, quantityAtom } from '../lib/atoms.js'
+import { formatPrice } from '../utils'
 
-export default function Price({ quantity, product, values }) {
-  if (!product) return null
-  const price = getCurrentVariant(product, values).price
+export default function Price() {
+  const quantity = useAtomValue(quantityAtom)
+  const product = useAtomValue(productAtom)
+  const variant = useCurrentVariant()
+  const productExists = product && Object.keys(product).length > 0
+  if (!productExists) return null
+  const price = variant.price
   const formattedPrice = formatPrice(price, quantity)
   return <div className='font-semibold text-[28px]'>{formattedPrice}</div>
 }

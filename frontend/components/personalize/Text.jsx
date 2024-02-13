@@ -5,20 +5,14 @@ import { minHeight } from '../App'
 import Checkbox from '../common/Checkbox'
 import { cn } from '../utils'
 import { useAtom } from 'jotai'
-import { isTextAtom, isBusinessAtom, customTextAtom, notesAtom } from '../lib/atoms'
+import { isTextAtom, customTextAtom, notesAtom } from '../lib/atoms'
+import { isBusinessAtom } from '../lib/businessAtoms'
 
 export default function Text() {
   const [isCustomText, setIsCustomText] = useAtom(isTextAtom)
   const [isBusiness, setIsBusiness] = useAtom(isBusinessAtom)
   const [customText, setCustomText] = useAtom(customTextAtom)
   const [notes, setNotes] = useAtom(notesAtom)
-
-  const {
-    formState: { errors },
-    watch,
-    register,
-    setValue,
-  } = useFormContext()
 
   const handleClick = (e) => {
     e.stopPropagation()

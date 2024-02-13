@@ -1,17 +1,18 @@
 import React, { useCallback, useState } from 'react'
-import Modal from '../common/Modal'
-import { useFormContext } from 'react-hook-form'
 import { useDropzone } from 'react-dropzone'
 import { cn } from '../utils'
 import Icons from '../common/Icons'
+import { useAtomValue, useSetAtom } from 'jotai'
 
-export default function Logo({ setImageFile }) {
+import { isVectorAtom, isNonVectorAtom, isLogoAtom, imageFileAtom } from '../lib/businessAtoms'
+
+export default function Logo() {
   const [preview, setPreview] = useState(null)
   const [isOpen, setIsOpen] = useState(false)
-  const { watch, setValue } = useFormContext()
-  const isLogo = watch('logo')
-  const isVector = watch('vector')
-  const isNonVector = watch('nonVector')
+  const isLogo = useAtomValue(isLogoAtom)
+  const isVector = useAtomValue(isVectorAtom)
+  const isNonVector = useAtomValue(isNonVectorAtom)
+  const setImageFile = useSetAtom(imageFileAtom)
 
   const enabled = isVector || isNonVector
 

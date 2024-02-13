@@ -1,7 +1,10 @@
 import React from 'react'
 import Icons from '../common/Icons'
+import { useAtom } from 'jotai'
+import { quantityAtom } from '../lib/atoms'
 
-export default function Quantity({ quantity, setQuantity }) {
+export default function Quantity() {
+  const [quantity, setQuantity] = useAtom(quantityAtom)
   const handleQuantity = (e) => {
     if (e.target.id === 'plus') {
       setQuantity(quantity + 1)

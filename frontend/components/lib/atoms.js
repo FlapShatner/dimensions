@@ -1,5 +1,8 @@
 import { atom } from 'jotai'
 
+export const productAtom = atom({})
+export const variantsAtom = atom({})
+export const quantityAtom = atom(1)
 export const chosenWindowSizeAtom = atom({})
 
 export const vehiclesAtom = atom([])
@@ -11,6 +14,8 @@ export const windowSizeAtom = atom({
  b: 0,
  c: 0,
 })
+
+export const valuesAtom = atom({})
 
 export const disableModelAtom = atom(true)
 export const disableWindowAtom = atom(true)
@@ -26,10 +31,11 @@ export const modelStateAtom = atom({})
 
 export const isStandardAtom = atom(false)
 export const isCustomAtom = atom(false)
-export const isBusinessAtom = atom(false)
 export const isTextAtom = atom(false)
 
 export const customTextAtom = atom('')
 export const notesAtom = atom('')
 
 export const enableAddToCartAtom = atom(false)
+
+export const submitErrorAtom = atom(null)
