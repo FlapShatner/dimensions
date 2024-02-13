@@ -7,6 +7,10 @@ export default defineConfig({
   shopify({
    themeRoot: 'extensions/dimensions',
   }),
-  react(),
+  react({
+   babel: {
+    presets: ['jotai/babel/preset'],
+   },
+  }),
  ],
 })
