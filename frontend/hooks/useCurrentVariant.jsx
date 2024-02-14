@@ -8,7 +8,7 @@ export function useCurrentVariant() {
   const productExists = product && Object.keys(product).length > 0
   if (!productExists) return null
   const { variants } = product
-  console.log('variants:', variants)
+  //   console.log('variants:', variants)
   let currentVariant = ''
   if (values._customText) {
     variants.forEach((variant) => {
@@ -47,6 +47,6 @@ export function useCurrentVariant() {
       }
     })
   }
-  console.log('currentVariant:', currentVariant)
+  //   console.log('currentVariant:', currentVariant)
   return currentVariant
 }

@@ -6,7 +6,7 @@ import Doors from './Doors'
 import Models from './Models'
 import Year from './Year'
 
-export default function VehicleForm() {
+function CreateVehicle() {
   return (
     <div className='flex flex-col border border-border p-4 max-w-sm m-auto'>
       <span className='text-center text-accent'>Search our database for your truck. If we don't have it, add it!</span>
@@ -35,3 +35,5 @@ export default function VehicleForm() {
     </div>
   )
 }
+
+export default CreateVehicle

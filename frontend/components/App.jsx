@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react'
 import { DevTools } from 'jotai-devtools'
-import { getCurrentProduct, addToCart } from './ajax.js'
-
-import { useForm, FormProvider } from 'react-hook-form'
+import { getCurrentProduct } from './ajax.js'
 
 import ATC from './ui/Atc.jsx'
 import Quantity from './ui/Quantity.jsx'

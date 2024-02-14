@@ -21,6 +21,7 @@ export const getCurrentProduct = async () => {
 }
 
 export const addToCart = async (formData) => {    
+    console.log("formData", formData)
     try {
         const result = await fetch(window.Shopify.routes.root + 'cart/add.js', {
             method: 'POST',
@@ -33,7 +34,7 @@ export const addToCart = async (formData) => {
         // console.log("resultJson", resultJson)
         return resultJson
     }
-    catch {
-        console.log('error')
+    catch (err){
+        console.log('error:', err)
     }
 }

@@ -101,16 +101,16 @@ export default function BusinessForm({ setIsOpen }) {
       setLogoError('Please describe your custom logo')
       return
     }
-    // if (isNonVector && !imageFile) {
-    //   setisLogoError(true)
-    //   setLogoError('Please upload a file')
-    //   return
-    // }
-    // if (isVector && !imageFile) {
-    //   setisLogoError(true)
-    //   setLogoError('Please upload a file')
-    //   return
-    // }
+    if (isNonVector && !imageFile) {
+      setisLogoError(true)
+      setLogoError('Please upload a file')
+      return
+    }
+    if (isVector && !imageFile) {
+      setisLogoError(true)
+      setLogoError('Please upload a file')
+      return
+    }
     setIsBusiness(true)
     setIsOpen(false)
   }

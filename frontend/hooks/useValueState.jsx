@@ -29,7 +29,7 @@ export function useValueState() {
   const state = useAtomValue(stateAtom)
   const phone = useAtomValue(phoneAtom)
   const website = useAtomValue(websiteAtom)
-  const logo = useAtomValue(isLogoAtom)
+  const isLogo = useAtomValue(isLogoAtom)
   const designLogo = useAtomValue(isDesignAtom)
   const vector = useAtomValue(isVectorAtom)
   const nonVector = useAtomValue(isNonVectorAtom)
@@ -52,12 +52,12 @@ export function useValueState() {
     state: isBusiness ? state : null,
     phone: isBusiness ? phone : null,
     website: isBusiness ? website : null,
-    logo: logo ? true : null,
+    logo: isLogo ? true : null,
     designLogo: designLogo ? true : null,
     logoNote: designLogo ? logoNote : null,
     vector: vector ? true : null,
     nonVector: nonVector ? true : null,
-    _image: logo ? imageUrl : null,
+    image: isLogo ? imageUrl : null,
   }
   return values
 }

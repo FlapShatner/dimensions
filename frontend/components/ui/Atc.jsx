@@ -76,11 +76,11 @@ export default function ATC() {
       setSubmitError('Please enter your business information')
       return
     }
-
+    let result = null
     if (imageFile) {
-      const response = await uploadImage(imageFile)
+      console.log('imageFile:', imageFile)
+      result = await uploadImage(imageFile)
       setIsLogo(true)
-      setImageUrl(await response)
     }
 
     const variantId = await variant.id
@@ -93,13 +93,14 @@ export default function ATC() {
           quantity: quantity,
           properties: {
             ...properties,
+            _imageUrl: result,
           },
         },
       ],
     }
-    console.log('formData', formData)
-    // console.log('values', values)
     addToCart(formData).then((data) => {
+      console.log('data:', data)
+      console.log('imageUrl:', imageUrl)
       if (data) {
         window.location.href = '/cart'
       }
