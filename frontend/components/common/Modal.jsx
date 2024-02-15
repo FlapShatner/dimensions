@@ -8,6 +8,7 @@ export default function Modal({ isOpen, setIsOpen, closeStyle, children, content
       backgroundColor: 'hsla(0, 0%, 0%, 0.5)',
       zIndex: '10000',
       minHeight: '100vh',
+      position: 'fixed',
     },
     content: {
       top: '50%',

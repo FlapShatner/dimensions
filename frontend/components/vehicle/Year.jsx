@@ -2,16 +2,22 @@ import React from 'react'
 import Icons from '../common/Icons'
 import { getYears } from '../utils'
 import { useAtom, useAtomValue } from 'jotai'
-import { yearAtom, isStandardAtom } from '../lib/atoms'
+import { yearAtom, isStandardAtom, isAddVehicleAtom, addedYearAtom } from '../lib/atoms'
 
 function Year() {
   const [year, setYear] = useAtom(yearAtom)
   const isStandard = useAtomValue(isStandardAtom)
+  const isAddVehicle = useAtomValue(isAddVehicleAtom)
+  const setAddedYear = useAtom(addedYearAtom)[1]
 
   const years = getYears()
 
   const handleChange = (e) => {
-    setYear(e.target.value)
+    if (isAddVehicle) {
+      setAddedYear(e.target.value)
+    } else {
+      setYear(e.target.value)
+    }
   }
 
   return (

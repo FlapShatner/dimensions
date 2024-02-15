@@ -24,7 +24,7 @@ export default function Text() {
     <div className='flex flex-col border-b p-4  border border-border my-2'>
       <div className='flex gap-2 items-center mb-2'>
         <Checkbox onClick={handleClick} isChecked={isCustomText} />
-        <label htmlFor='customText'>Personalize with Name / Text</label>
+        <label htmlFor='customText'>Personalize With Name / Text</label>
       </div>
       <div className={cn('flex flex-col', !isCustomText && 'opacity-30')}>
         <label htmlFor='customTextField'>Your custom text:</label>

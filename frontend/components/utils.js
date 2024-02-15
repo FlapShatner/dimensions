@@ -90,5 +90,20 @@ export function matchesValue(str, arr) {
     return arr.some(item => item.value === str.toLowerCase());
 }
 
-
+export function makeVehicle(make, model, year, doors, window) {
+    console.log('make', make, 'model', model, 'year', year, 'doors', doors, 'window', window)
+    return {
+        vehicle: {
+            make: make,
+            model: model,
+            year: year,
+            doors: doors
+        },
+        window: {
+            a:window.a,
+            b:window.b,
+            c:window.c
+        }
+    }
+}
 

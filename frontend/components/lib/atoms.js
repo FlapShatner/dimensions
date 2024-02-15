@@ -39,3 +39,18 @@ export const notesAtom = atom('')
 export const enableAddToCartAtom = atom(false)
 
 export const submitErrorAtom = atom(null)
+
+export const isAddVehicleAtom = atom(false)
+export const addedModelAtom = atom('')
+export const addedMakeAtom = atom('')
+export const addedYearAtom = atom('2024')
+export const addedDoorsAtom = atom('2')
+export const addedWindowAtom = atom({
+ a: 0,
+ b: 0,
+ c: 0,
+})
+export const addedVehicleAtom = atom('')
+
+export const didAddVehicleAtom = atom(false)
+export const newVehicleIdAtom = atom('')

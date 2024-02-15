@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import CreatableSelect from 'react-select/creatable'
-import { addMake, getMakes } from '../services.js'
+import { getMakes } from '../services.js'
 import { matchesValue } from '../utils.js'
 import { useSetAtom } from 'jotai'
 import { makeAtom, disableModelAtom, modelStateAtom, windowSizeAtom } from '../lib/atoms.js'
@@ -57,20 +57,7 @@ export default function Makes() {
   }
 
   const handleCreate = async (inputValue) => {
-    if (matchesValue(inputValue, options)) {
-      setValueState(inputValue)
-      return
-    }
-    setIsLoading(true)
-    try {
-      const newOption = createOption(inputValue)
-      const result = await addMake(newOption)
-      setIsLoading(false)
-      setOptions([...options, newOption])
-      setValueState(newOption)
-    } catch (error) {
-      console.log(error)
-    }
+    console.log('handleCreate', inputValue)
   }
 
   return (

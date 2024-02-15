@@ -1,5 +1,5 @@
 import { useSetAtom, useAtomValue } from 'jotai'
-import { isStandardAtom, windowSizeAtom, isTextAtom, customTextAtom, notesAtom, valuesAtom } from '../components/lib/atoms.js'
+import { isStandardAtom, windowSizeAtom, isTextAtom, customTextAtom, notesAtom, didAddVehicleAtom, newVehicleIdAtom } from '../components/lib/atoms.js'
 import {
   businessNameAtom,
   sloganAtom,
@@ -35,6 +35,9 @@ export function useValueState() {
   const nonVector = useAtomValue(isNonVectorAtom)
   const logoNote = useAtomValue(logoNoteAtom)
   const imageUrl = useAtomValue(imageUrlAtom)
+  const didAddVehicle = useAtomValue(didAddVehicleAtom)
+  const newVehicleId = useAtomValue(newVehicleIdAtom)
+
   //   const setValues = useSetAtom(valuesAtom)
 
   const values = {
@@ -58,6 +61,8 @@ export function useValueState() {
     vector: vector ? true : null,
     nonVector: nonVector ? true : null,
     image: isLogo ? imageUrl : null,
+    addedVehicle: didAddVehicle ? true : false,
+    addedVehicleId: didAddVehicle ? newVehicleId : null,
   }
   return values
 }
