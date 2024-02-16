@@ -24,15 +24,15 @@ function Measurements() {
 
   return (
     <div className={cn('mt-4', disableWindow ? 'opacity-50' : 'opacity-100')}>
-      <SizeBox className='ml-20' size={loadingWindow ? '0' : windowSize.a}>
+      <SizeBox className='ml-20' size={windowSize.a}>
         Top Width
       </SizeBox>
 
       <div className='flex gap-4 items-center'>
-        <SizeBox size={loadingWindow ? '0' : windowSize.b}>Window Height</SizeBox>
+        <SizeBox size={windowSize.b}>Window Height</SizeBox>
         <WindowImage />
       </div>
-      <SizeBox className='ml-20' size={loadingWindow ? '0' : windowSize.c}>
+      <SizeBox className='ml-20' size={windowSize.c}>
         Bottom Width
       </SizeBox>
     </div>

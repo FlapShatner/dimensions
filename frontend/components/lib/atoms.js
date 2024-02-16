@@ -54,3 +54,4 @@ export const addedVehicleAtom = atom('')
 
 export const didAddVehicleAtom = atom(false)
 export const newVehicleIdAtom = atom('')
+export const isVehicleOpenAtom = atom(false)

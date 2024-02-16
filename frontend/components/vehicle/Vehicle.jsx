@@ -1,26 +1,13 @@
 import React, { useEffect } from 'react'
 import { DevTools } from 'jotai-devtools'
 import { useLockedBody } from 'usehooks-ts'
-import { cn, makeVehicle } from '../utils'
-import { saveVehicle } from '../services'
+import { cn } from '../utils'
 import VehicleForm from './VehicleForm'
-import Spinner from '../common/Spinner'
-import { useAtom, useAtomValue, useSetAtom } from 'jotai'
-import {
-  chosenWindowSizeAtom,
-  windowSizeAtom,
-  isAddVehicleAtom,
-  addedWindowAtom,
-  addedDoorsAtom,
-  addedMakeAtom,
-  addedModelAtom,
-  addedYearAtom,
-  didAddVehicleAtom,
-  newVehicleIdAtom,
-} from '../lib/atoms'
+import { useAtom } from 'jotai'
+import { isAddVehicleAtom } from '../lib/atoms'
 import AddVehicle from './AddVehicle'
 
-export default function Vehicle({ setIsOpen }) {
+export default function Vehicle() {
   const [isAddVehicle, setIsAddVehicle] = useAtom(isAddVehicleAtom)
 
   const [locked, setLocked] = useLockedBody(false, 'root')
@@ -45,45 +32,7 @@ export default function Vehicle({ setIsOpen }) {
           <VehicleForm />
         )}
       </div>
-      <SubmitButton />
-    </div>
-  )
-}
-
-function SubmitButton({ isLoading }) {
-  const [chosenWindowSize, setChosenWindowSize] = useAtom(chosenWindowSizeAtom)
-  const isAddVehicle = useAtomValue(isAddVehicleAtom)
-  const addedWindow = useAtomValue(addedWindowAtom)
-  const addedDoors = useAtomValue(addedDoorsAtom)
-  const addedMake = useAtomValue(addedMakeAtom)
-  const addedModel = useAtomValue(addedModelAtom)
-  const addedYear = useAtomValue(addedYearAtom)
-  const windowSize = useAtomValue(windowSizeAtom)
-  const setNewVehicleId = useSetAtom(newVehicleIdAtom)
-  const setDidAddVehicle = useSetAtom(didAddVehicleAtom)
-
-  const handleSubmit = async () => {
-    if (isAddVehicle) {
-      setChosenWindowSize(addedWindow)
-      const data = makeVehicle(addedMake, addedModel, addedYear, addedDoors, addedWindow)
-      const response = await saveVehicle(data)
-      setDidAddVehicle(true)
-      setNewVehicleId(response.id)
-      console.log(response)
-    } else {
-      setChosenWindowSize(windowSize)
-      setIsOpen(false)
-    }
-  }
-
-  return (
-    <div
-      onClick={handleSubmit}
-      className={cn(
-        'w-full md:w-max  m-auto border border-border text-accent text-xl flex items-center justify-center cursor-pointer hover:border-accent  hover:bg-bg-secondary transition-all px-4 py-2',
-        isLoading && 'border-accent'
-      )}>
-      {isLoading ? <Spinner /> : 'Use These Measurements'}
+      {/* <DevTools /> */}
     </div>
   )
 }

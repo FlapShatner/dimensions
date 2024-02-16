@@ -61,8 +61,8 @@ export function useValueState() {
     vector: vector ? true : null,
     nonVector: nonVector ? true : null,
     image: isLogo ? imageUrl : null,
-    addedVehicle: didAddVehicle ? true : false,
-    addedVehicleId: didAddVehicle ? newVehicleId : null,
+    _addedVehicle: didAddVehicle ? true : false,
+    _addedVehicleId: didAddVehicle ? newVehicleId : null,
   }
   return values
 }

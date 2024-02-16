@@ -6,6 +6,7 @@ import Measurements from './Measurements'
 import Doors from './Doors'
 import Models from './Models'
 import Year from './Year'
+import SubmitButton from './SubmitButton'
 import { isAddVehicleAtom } from '../lib/atoms'
 
 export default function VehicleForm() {
@@ -49,6 +50,7 @@ export default function VehicleForm() {
         </div>
       </div>
       <Measurements />
+      <SubmitButton />
     </div>
   )
 }

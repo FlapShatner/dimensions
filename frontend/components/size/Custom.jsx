@@ -4,7 +4,7 @@ import Modal from '../common/Modal'
 import Vehicle from '../vehicle/Vehicle'
 import Checkbox from '../common/Checkbox'
 import { useSetAtom, useAtomValue, useAtom } from 'jotai'
-import { chosenWindowSizeAtom, makeAtom, modelStateAtom, yearAtom, loadingWindowAtom, isStandardAtom, isCustomAtom } from '../lib/atoms'
+import { chosenWindowSizeAtom, makeAtom, modelStateAtom, yearAtom, loadingWindowAtom, isStandardAtom, isCustomAtom, isVehicleOpenAtom } from '../lib/atoms'
 import MiniMeasure from '../vehicle/miniMeasure'
 
 export default function Custom() {
@@ -15,7 +15,7 @@ export default function Custom() {
   const setModelState = useSetAtom(modelStateAtom)
   const setYear = useSetAtom(yearAtom)
   const chosenWindowSize = useAtomValue(chosenWindowSizeAtom)
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useAtom(isVehicleOpenAtom)
 
   const handleClick = (e) => {
     setIsOpen(true)
@@ -27,7 +27,6 @@ export default function Custom() {
 
   const handleClose = () => {
     setIsOpen(false)
-    setLoadingWindow(true)
     setMake({})
     setModelState({})
     setYear(2022)
@@ -42,7 +41,7 @@ export default function Custom() {
       isOpen={isOpen}
       setIsOpen={handleClick}
       closeStyle='text-txt-primary border-2 border-border hover:border-red-600 flex w-full justify-end'
-      contents={<Vehicle setIsOpen={setIsOpen} />}>
+      contents={<Vehicle />}>
       <div className='flex flex-col p-4 border border-border'>
         <div className='flex gap-2 items-center'>
           <Checkbox onClick={handleClick} isChecked={isWindowChosen && isCustom} />

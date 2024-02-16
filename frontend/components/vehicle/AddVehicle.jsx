@@ -4,6 +4,7 @@ import { useAtom } from 'jotai'
 import AddMeasurements from './AddMeasurements'
 import AddDoors from './AddDoors'
 import Year from './Year'
+import SubmitButton from './SubmitButton'
 import { addedMakeAtom, addedModelAtom, addedVehicleAtom } from '../lib/atoms'
 
 function AddVehicle() {
@@ -49,6 +50,7 @@ function AddVehicle() {
         Measure the width in inches of the window from corner to corner at the top, the width of the window at the bottom, and the height of the window.
       </p>
       <AddMeasurements />
+      <SubmitButton />
     </div>
   )
 }

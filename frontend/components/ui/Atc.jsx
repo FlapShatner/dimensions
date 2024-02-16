@@ -5,59 +5,24 @@ import { addToCart } from '../ajax'
 import { useValueState } from '../../hooks/useValueState'
 import { useCurrentVariant } from '../../hooks/useCurrentVariant'
 import { useAtomValue, useSetAtom, useAtom } from 'jotai'
-import {
-  enableAddToCartAtom,
-  isCustomAtom,
-  isStandardAtom,
-  windowSizeAtom,
-  isTextAtom,
-  customTextAtom,
-  notesAtom,
-  submitErrorAtom,
-  productAtom,
-  valuesAtom,
-  quantityAtom,
-} from '../lib/atoms'
-import {
-  businessNameAtom,
-  sloganAtom,
-  cityAtom,
-  stateAtom,
-  phoneAtom,
-  websiteAtom,
-  isLogoAtom,
-  isDesignAtom,
-  isVectorAtom,
-  isNonVectorAtom,
-  logoNoteAtom,
-  imageFileAtom,
-  imageUrlAtom,
-} from '../lib/businessAtoms'
+import { isCustomAtom, isStandardAtom, isTextAtom, customTextAtom, submitErrorAtom, productAtom, didAddVehicleAtom, quantityAtom } from '../lib/atoms'
+import { businessNameAtom, isLogoAtom, imageFileAtom, imageUrlAtom } from '../lib/businessAtoms'
 
 export default function ATC() {
   const standard = useAtomValue(isStandardAtom)
   const isCustom = useAtomValue(isCustomAtom)
-  const { a, b, c } = useAtomValue(windowSizeAtom)
   const isText = useAtomValue(isTextAtom)
   const customText = useAtomValue(customTextAtom)
-  const notesField = useAtomValue(notesAtom)
   const isBusiness = useAtomValue(businessNameAtom)
   const businessName = useAtomValue(businessNameAtom)
-  const slogan = useAtomValue(sloganAtom)
-  const city = useAtomValue(cityAtom)
-  const state = useAtomValue(stateAtom)
-  const phone = useAtomValue(phoneAtom)
-  const website = useAtomValue(websiteAtom)
-  const [logo, setIsLogo] = useAtom(isLogoAtom)
-  const designLogo = useAtomValue(isDesignAtom)
-  const vector = useAtomValue(isVectorAtom)
-  const nonVector = useAtomValue(isNonVectorAtom)
-  const logoNote = useAtomValue(logoNoteAtom)
   const imageFile = useAtomValue(imageFileAtom)
+  const setIsLogo = useAtomValue(isLogoAtom)
+
   const [imageUrl, setImageUrl] = useAtom(imageUrlAtom)
   const setSubmitError = useSetAtom(submitErrorAtom)
   const product = useAtomValue(productAtom)
   const quantity = useAtomValue(quantityAtom)
+  const didAddVehicle = useAtomValue(didAddVehicleAtom)
 
   const filtered = (obj) => {
     const filteredEntries = Object.entries(obj).filter(([key, value]) => value)
@@ -82,6 +47,8 @@ export default function ATC() {
       result = await uploadImage(imageFile)
       setIsLogo(true)
     }
+    if (didAddVehicle) {
+    }
 
     const variantId = await variant.id
     const properties = filtered(values)
@@ -93,7 +60,7 @@ export default function ATC() {
           quantity: quantity,
           properties: {
             ...properties,
-            _imageUrl: result,
+            _imageUrl: result ? result : 'no image',
           },
         },
       ],

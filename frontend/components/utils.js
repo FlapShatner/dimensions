@@ -78,7 +78,7 @@ export const uploadImage = async (image) => {
   })
   const res = await response.json()
   if (res.error) throw new Error(res.error.message)
-  return res.url
+  return res.secure_url
  } catch (error) {
   // console.log(error)
   return { error: error }
