@@ -119,7 +119,7 @@ export default function BusinessForm({ setIsOpen }) {
     <>
       <div>
         <h2 className='text-txt-primary text-3xl'>Business Info:</h2>
-        <div className='flex justify-between gap-4'>
+        <div className='flex flex-col sm:flex-row justify-between gap-4'>
           <div className={cn('flex flex-col gap-4 py-4 ')}>
             <div className='flex flex-col gap-4'>
               <div className='flex flex-col '>
@@ -151,7 +151,7 @@ export default function BusinessForm({ setIsOpen }) {
                 />
               </div>
             </div>
-            <div className='flex gap-4'>
+            <div className='flex flex-col sm:flex-row gap-4'>
               <div className='flex flex-col w-full'>
                 <label htmlFor='city'>City</label>
                 <input style={minHeight} disabled={!isBusiness} type='text' name='city' id='city' value={city} onChange={(e) => setCity(e.target.value)} />
@@ -189,7 +189,7 @@ export default function BusinessForm({ setIsOpen }) {
               Done
             </div>
           </div>
-          <div className='w-1/2'>
+          <div className='w-full sm:w-1/2'>
             <div className='flex flex-col'>
               <span className='text-txt-primary text-xl'>Logo:</span>
               {isLogoError && <span className='text-red-600'>{logoError}</span>}
