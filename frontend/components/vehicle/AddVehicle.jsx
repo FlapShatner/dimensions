@@ -47,7 +47,7 @@ function AddVehicle() {
         </div>
       </div>
       <p className='text-accent text-xs mb-2 mt-4 w-[300px] text-center m-auto'>
-        Measure the width in inches of the window from corner to corner at the top, the width of the window at the bottom, and the height of the window.
+        Measure the width at the top, bottom, and the height of the window. Measure from edge to edge. Enter the measurements in inches.
       </p>
       <AddMeasurements />
       <SubmitButton />

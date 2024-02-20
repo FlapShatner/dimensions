@@ -1,9 +1,9 @@
 const fs = require('fs');
 const path = require('path');
 
-const manifestPath = path.join(__dirname, 'extensions/uploader/assets/manifest.json');
-const assetsDir = path.join(__dirname, 'extensions/uploader/assets');
-const entryPath = path.join(__dirname, '/extensions/uploader/blocks/entry.liquid');
+const manifestPath = path.join(__dirname, 'extensions/dimensions/assets/manifest.json');
+const assetsDir = path.join(__dirname, 'extensions/dimensions/assets');
+const entryPath = path.join(__dirname, '/extensions/dimensions/blocks/entry.liquid');
 
 
 // Function to delete all files except specified ones
@@ -35,7 +35,7 @@ fs.readFile(manifestPath, 'utf8', (err, data) => {
 
     try {
         const manifest = JSON.parse(data);
-        const themeAppConfig = manifest["frontend/entrypoints/themeApp.jsx"];
+        const themeAppConfig = manifest["frontend/entrypoints/theme.jsx"];
         
         if (themeAppConfig && themeAppConfig.css && themeAppConfig.css.length > 0 && themeAppConfig.file) {
             const cssFile = themeAppConfig.css[0];

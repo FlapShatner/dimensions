@@ -20,7 +20,7 @@ export default function Standard() {
   }
 
   return (
-    <div className={cn('border border-border p-4 w-full bg-bg-primary', isStandard && 'text-accent ')}>
+    <div className={cn('border border-border p-4 w-full bg-transparent', isStandard && 'text-accent ')}>
       <div className='flex items-center gap-2'>
         <Checkbox onClick={handleClick} isChecked={isStandard} />
         <span>Order standard 18" x 68" size*</span>
