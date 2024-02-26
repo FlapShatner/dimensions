@@ -28,13 +28,18 @@ function ProductImage() {
         isOpen={isZoomed}
         onClose={() => setIsZoomed(false)}
         setIsOpen={handleModal}
-        contents={<img className=' my-12' src={image} alt='' />}
+        contents={<img className='max-w-[70vw] max-h-[80vh] my-12' src={image} alt='' />}
       />
 
       {image ? (
         <img
           onClick={handleModal}
-          className={cn('cursor-zoom-in  hover:scale-[102%] ease-in-out transition-all', isMd && 'w-[400px]', isSm && 'm-auto max-w-[90vw]')}
+          className={cn(
+            'cursor-zoom-in max-w-[540px] hover:scale-[102%] ease-in-out transition-all',
+            isMd && 'w-[400px]',
+            isSm && 'm-auto max-w-[90vw]',
+            isLg && 'max-w-[540px]'
+          )}
           src={image}
           alt=''
         />

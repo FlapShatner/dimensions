@@ -53,7 +53,7 @@ export default function App({ home }) {
           <ProductImage />
           {!isSm && !Object.keys(product).length == 0 && <div dangerouslySetInnerHTML={{ __html: productHtml }}></div>}
         </div>
-        <div className='window-form bg-black w-full '>
+        <div className='window-form bg-transparent w-full '>
           <div className='flex flex-col gap-2'>
             <Title />
             <div className='flex justify-between '>
