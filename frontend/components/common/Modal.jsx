@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import ReactModal from 'react-modal'
 import Icons from './Icons'
 
-export default function Modal({ isOpen, setIsOpen, closeStyle, children, contents, maxWidth, onClose }) {
+export default function Modal({ isOpen, setIsOpen, closeStyle, children, contents, maxWidth, minWidth, minHeight, onClose }) {
   const customStyles = {
     overlay: {
       backgroundColor: 'hsla(0, 0%, 0%, 0.5)',
@@ -22,7 +22,8 @@ export default function Modal({ isOpen, setIsOpen, closeStyle, children, content
       borderRadius: '10px',
       padding: '20px',
       maxWidth: maxWidth,
-      maxHeight: '90%',
+      minWidth: minWidth,
+      minHeight: minHeight ? minHeight : '90%',
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'start',
