@@ -15,23 +15,26 @@ function ProductImage() {
   let isSm = width < 768
   const [isZoomed, setIsZoomed] = useState(false)
   const handleModal = () => {
+    if (isSm) {
+      return
+    }
     setIsZoomed(!isZoomed)
   }
   return (
-    <div className='min-w-[70vh] max-h-[70vh]'>
+    <div className={cn('max-h-[70vh]', !isSm && 'min-w-[70vh] ')}>
       <Modal
-        minHeight='90vh'
-        minWidth='900px'
+        minHeight='70vh'
+        minWidth='70vw'
         isOpen={isZoomed}
         onClose={() => setIsZoomed(false)}
         setIsOpen={handleModal}
-        contents={<img className='scale-110 my-12' src={image} alt='' />}
+        contents={<img className=' my-12' src={image} alt='' />}
       />
 
       {image ? (
         <img
           onClick={handleModal}
-          className={cn('cursor-zoom-in  hover:scale-[102%] ease-in-out transition-all', isMd && 'w-[400px]', isSm && 'm-auto')}
+          className={cn('cursor-zoom-in  hover:scale-[102%] ease-in-out transition-all', isMd && 'w-[400px]', isSm && 'm-auto max-w-[90vw]')}
           src={image}
           alt=''
         />
