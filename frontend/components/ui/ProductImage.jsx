@@ -4,11 +4,15 @@ import { useAtomValue } from 'jotai'
 import { productAtom } from '../lib/atoms'
 import Spinner from '../common/Spinner'
 import Modal from '../common/Modal'
-import { useWindowSize } from 'usehooks-ts'
+import { useWindowSize, useLocalStorage } from 'usehooks-ts'
 
 function ProductImage() {
   const product = useAtomValue(productAtom)
-  const image = Object.keys(product).length == 0 ? null : `https:${product.featured_image}`
+  const [windowProduct, setWindowProduct] = useLocalStorage('windowProduct', {})
+
+  const isAi = product.id == 7180539068499
+
+  const image = isAi ? windowProduct.url : Object.keys(product).length == 0 ? null : `https:${product.featured_image}`
   const { width } = useWindowSize()
   let isLg = width > 1040
   let isMd = width > 768 && width < 1040
