@@ -1,6 +1,7 @@
 import React from 'react'
 import Icons from '../common/Icons'
 import { cn, uploadImage } from '../utils'
+import { useLocalStorage } from 'usehooks-ts'
 import { addToCart } from '../ajax'
 import { useValueState } from '../../hooks/useValueState'
 import { useCurrentVariant } from '../../hooks/useCurrentVariant'
@@ -23,6 +24,10 @@ export default function ATC() {
   const product = useAtomValue(productAtom)
   const quantity = useAtomValue(quantityAtom)
   const didAddVehicle = useAtomValue(didAddVehicleAtom)
+
+  const [windowProduct, setWindowProduct] = useLocalStorage('windowProduct', {})
+
+  const isAi = product.id == 7180539068499
 
   const filtered = (obj) => {
     const filteredEntries = Object.entries(obj).filter(([key, value]) => value)
@@ -61,6 +66,7 @@ export default function ATC() {
           properties: {
             ...properties,
             _imageUrl: result ? result : 'no image',
+            aiImage: isAi ? windowProduct.url : 'no ai image',
           },
         },
       ],
@@ -70,6 +76,7 @@ export default function ATC() {
       console.log('imageUrl:', imageUrl)
       if (data) {
         window.location.href = '/cart'
+        setWindowProduct({})
       }
     })
   }

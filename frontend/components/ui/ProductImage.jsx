@@ -25,7 +25,7 @@ function ProductImage() {
     setIsZoomed(!isZoomed)
   }
   return (
-    <div className={cn('max-h-[70vh]', !isSm && 'min-w-[70vh] ')}>
+    <div className={cn('max-h-[70vh]', isAi && 'border border-border h-full flex items-center bg-bg-primary')}>
       <Modal
         minHeight='70vh'
         minWidth='70vw'
@@ -42,7 +42,8 @@ function ProductImage() {
             'cursor-zoom-in max-w-[540px] hover:scale-[102%] ease-in-out transition-all',
             isMd && 'w-[400px]',
             isSm && 'm-auto max-w-[90vw]',
-            isLg && 'max-w-[540px]'
+            isLg && 'max-w-[540px]',
+            isAi && 'p-4'
           )}
           src={image}
           alt=''
