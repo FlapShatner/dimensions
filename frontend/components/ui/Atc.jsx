@@ -66,7 +66,7 @@ export default function ATC() {
           properties: {
             ...properties,
             _imageUrl: result ? result : 'no image',
-            aiImage: isAi ? windowProduct.url : 'no ai image',
+            _aiImage: isAi ? windowProduct.url : 'no ai image',
           },
         },
       ],
@@ -76,7 +76,7 @@ export default function ATC() {
       console.log('imageUrl:', imageUrl)
       if (data) {
         window.location.href = '/cart'
-        setWindowProduct({})
+        // setWindowProduct({})
       }
     })
   }

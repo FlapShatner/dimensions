@@ -49,7 +49,13 @@ function ProductImage() {
           alt=''
         />
       ) : (
-        <div className='h-full w-full flex items-center justify-center'>
+        <div
+          className={cn(
+            'h-full w-full flex items-center justify-center max-w-[540px]',
+            isMd && 'w-[400px]',
+            isSm && 'm-auto max-w-[90vw]',
+            isLg && 'max-w-[540px]'
+          )}>
           <Spinner style={{ width: '48px', height: '48px' }} />
         </div>
       )}
